@@ -16,7 +16,7 @@ using UnityEngine.Networking;
 
     public override void OnStartLocalPlayer()
     {
-        GetComponent<MeshRenderer>().material.color = Color.red;
+        GetComponent<MeshRenderer>().material.color = Color.green;
     }
 
     // Update is called once per frame
@@ -27,7 +27,8 @@ using UnityEngine.Networking;
             return;
         }
 
-        if (startInputOnObject)
+        //if (startInputOnObject)
+        if (true)
         {
             if (Application.platform == RuntimePlatform.Android)
             {
