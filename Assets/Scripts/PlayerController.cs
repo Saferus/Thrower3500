@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
-    public class PlayerController : NetworkBehaviour
-    {
+public class PlayerController : NetworkBehaviour
+{
     public float speed = 1;
     public GameObject trajectory;
     public GameObject trajectoryInstance;
@@ -12,10 +13,23 @@ using UnityEngine.Networking;
     private bool startInputOnObject;
     private Vector2 startPos;
     private Vector2 force;
+    
+    public int attackPower = 50;
+    public float attackSpeed;
+    public int maxHealth = 20000;
+
+    [SyncVar(hook = "OnChangeHealth")]
+    public int currentHealth = 10000;
+    public Image healthBar;
+
+    public GameObject shopWhereIAm;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
+        healthBar = transform.FindChild("HealthBar").FindChild("HealthBG").FindChild("Health").GetComponent<Image>();
         rb = GetComponent<Rigidbody>();
+        healthBar.fillAmount = ((float) currentHealth) / maxHealth;
     }
 
     public override void OnStartLocalPlayer()
@@ -31,8 +45,7 @@ using UnityEngine.Networking;
             return;
         }
 
-        //if (startInputOnObject)
-        if (true)
+        if (startInputOnObject)
         {
             if (Application.platform == RuntimePlatform.Android)
             {
@@ -74,20 +87,21 @@ using UnityEngine.Networking;
         }
     }
 
-    private void OnPress(Vector3 pos)
+    private void OnPress(Vector2 pos)
     {
-        startPos = new Vector3(pos.x, pos.y, pos.z);
+        startPos = new Vector2(pos.x, pos.y);
         CreateTrajectory();
+        FocusManager.SetFocusedPlayer(gameObject);
     }
 
-    private void OnDrag(Vector3 pos)
+    private void OnDrag(Vector2 pos)
     {
         RescaleTrajectory(pos);
     }
 
-    private void OnRelease(Vector3 pos)
+    private void OnRelease(Vector2 pos)
     {
-        rb.AddForce(new Vector3(startPos.x - pos.x, 0, startPos.y - pos.y) * speed);
+        CmdAddForce(startPos, pos);
         startInputOnObject = false;
         DeleteTrajectory();
     }
@@ -124,10 +138,74 @@ using UnityEngine.Networking;
 
     private void OnMouseOver()
     {
-        if (!isLocalPlayer)
+        if (!isLocalPlayer || shopWhereIAm != null)
         {
             return;
         }
         startInputOnObject = true;
+    }
+
+    public void SetshopWhereIAm(GameObject shop)
+    {
+        shopWhereIAm = shop;
+    }
+
+    public void OnChangeHealth(int currentHealth)
+    {
+        if (currentHealth < 0)
+        {
+            if (shopWhereIAm != null)
+                shopWhereIAm.GetComponent<Shop>().OnSettleDead();
+        }
+        else
+            healthBar.fillAmount = (float)currentHealth / maxHealth;
+    }
+    
+    public void OnAttackClicked()
+    {
+        Shop shop = FocusManager.GetCurrentFocusedBuilding().GetComponent<Shop>();
+        if (shop.settledPlayer != null)
+            CmdOnAttackClicked(FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId,
+                shop.settledPlayer.GetComponent<NetworkIdentity>().netId);
+        FocusManager.SetFocusedPlayer(null);
+        FocusManager.SetFocusedBuilding(null);
+        shop.HideUI();
+    }
+
+    [Command]
+    public void CmdOnAttackClicked(NetworkInstanceId attackPlayerID, NetworkInstanceId defencePlayerID)
+    {
+        ObjectManager.GetInstance().StartCombat(attackPlayerID, defencePlayerID);
+    }
+
+    public void OnSettleClicked()
+    {
+        Shop shop = FocusManager.GetCurrentFocusedBuilding().GetComponent<Shop>();
+        if (shop.settledPlayer == null)
+        {
+            CmdOnSettleClicked(FocusManager.GetCurrentFocusedBuilding().GetComponent<NetworkIdentity>().netId,
+                                FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId);
+        }
+        FocusManager.SetFocusedPlayer(null);
+        FocusManager.SetFocusedBuilding(null);
+        shop.HideUI();
+    }
+
+    [Command]
+    public void CmdOnSettleClicked(NetworkInstanceId shopID, NetworkInstanceId settledPlayerID)
+    {
+        ObjectManager.GetInstance().SettlePlayerInShop(settledPlayerID, shopID);
+    }
+
+    [Command]
+    public void CmdAddForce(Vector2 startPos, Vector2 pos)
+    {
+        RpcAddClientForce(startPos, pos);
+    }
+
+    [ClientRpc]
+    public void RpcAddClientForce(Vector2 startPos, Vector2 pos)
+    {
+        rb.AddForce(new Vector3(startPos.x - pos.x, 0, startPos.y - pos.y) * speed);
     }
 }
