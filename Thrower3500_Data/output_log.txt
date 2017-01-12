@@ -16,13 +16,133 @@ Platform assembly: D:\workspace\Thrower3500\Thrower3500_Data\Managed\UnityEngine
 Loading D:\workspace\Thrower3500\Thrower3500_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\workspace\Thrower3500\Thrower3500_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading D:\workspace\Thrower3500\Thrower3500_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.045 seconds
+- Completed reload, in  0.041 seconds
 Platform assembly: D:\workspace\Thrower3500\Thrower3500_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\workspace\Thrower3500\Thrower3500_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 3840x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.547246 ms
+UnloadTime: 0.578473 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 3e28 -> priority: 1 
+  Thread -> id: 2924 -> priority: 1 
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.GameObject:get_transform ()
+  at PlayerController.RescaleTrajectory (Vector3 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.OnDrag (Vector2 pos) [0x00000] in <filename unknown>:0 
+  at PlayerController.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
