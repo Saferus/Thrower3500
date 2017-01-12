@@ -19,7 +19,7 @@ public class PlayerController : NetworkBehaviour
     public int maxHealth = 20000;
 
     [SyncVar(hook = "OnChangeHealth")]
-    public int currentHealth = 10000;
+    public int currentHealth = 20000;
     public Image healthBar;
 
     public GameObject shopWhereIAm;
@@ -27,7 +27,7 @@ public class PlayerController : NetworkBehaviour
     // Use this for initialization
     void Start ()
     {
-        healthBar = transform.FindChild("HealthBar").FindChild("HealthBG").FindChild("Health").GetComponent<Image>();
+        healthBar = transform.FindChild("HealthBar").FindChild("Health").GetComponent<Image>();
         rb = GetComponent<Rigidbody>();
         healthBar.fillAmount = ((float) currentHealth) / maxHealth;
     }
@@ -207,5 +207,15 @@ public class PlayerController : NetworkBehaviour
     public void RpcAddClientForce(Vector2 startPos, Vector2 pos)
     {
         rb.AddForce(new Vector3(startPos.x - pos.x, 0, startPos.y - pos.y) * speed);
+    }
+
+    [ClientRpc]
+    public void RpcDead()
+    {
+        if (shopWhereIAm != null)
+        {
+            GetComponent<Shop>().OnSettleDead();
+        }
+        Destroy(gameObject);
     }
 }

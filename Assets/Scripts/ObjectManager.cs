@@ -14,23 +14,25 @@ public class ObjectManager : NetworkBehaviour
 
         public Combat(PlayerController attacker, PlayerController defender)
         {
+            m_attackerDelay = 0;
+            m_defenderDelay = 0;
             m_attacker = attacker;
             m_defender = defender;
         }
 
         public bool Update()
         {
-            m_attackerDelay += Time.deltaTime;
-            m_defenderDelay += Time.deltaTime;
+            m_attackerDelay += Time.deltaTime * 1000;
+            m_defenderDelay += Time.deltaTime * 1000;
 
             bool end = false;
 
-            while (!end && m_attacker.attackSpeed > m_attackerDelay)
+            while (!end && m_attacker.attackSpeed < m_attackerDelay)
             {
                 end = Hit(m_defender, m_attacker);
                 m_attackerDelay -= m_attacker.attackSpeed;
             }
-            while (!end && m_defender.attackSpeed > m_defenderDelay)
+            while (!end && m_defender.attackSpeed < m_defenderDelay)
             {
                 end = Hit(m_attacker, m_defender);
                 m_defenderDelay -= m_defender.attackSpeed;
@@ -46,25 +48,20 @@ public class ObjectManager : NetworkBehaviour
         if (defender.currentHealth > 0)
         {
             defender.healthBar.fillAmount = (float)defender.currentHealth / defender.maxHealth;
-            return true;
+            return false;
         }
+        defender.RpcDead();
         if (defender.shopWhereIAm != null)
         {
             defender.GetComponent<Shop>().OnSettleDead();
         }
-        Destroy(defender);
-        return false;
+        Destroy(defender.gameObject);
+        return true;
     }
 
     private static ArrayList combats = new ArrayList();
 
     public void StartCombat(NetworkInstanceId attackerID, NetworkInstanceId defenderID)
-    {
-        CmdStartCombat(attackerID, defenderID);
-    }
-
-    [Command]
-    public void CmdStartCombat(NetworkInstanceId attackerID, NetworkInstanceId defenderID)
     {
         combats.Add(new Combat(NetworkServer.FindLocalObject(attackerID).GetComponent<PlayerController>(),
                                 NetworkServer.FindLocalObject(defenderID).GetComponent<PlayerController>()));
@@ -84,13 +81,14 @@ public class ObjectManager : NetworkBehaviour
     {
         GameObject shop = NetworkServer.FindLocalObject(shopID);
         GameObject settledPlayer = NetworkServer.FindLocalObject(settledPlayerID);
-        settledPlayer.GetComponent<PlayerController>().currentHealth = 5000;
-        settledPlayer.GetComponent<PlayerController>().OnChangeHealth(5000);
+        settledPlayer.GetComponent<PlayerController>().currentHealth = 15000;
+        settledPlayer.GetComponent<PlayerController>().OnChangeHealth(15000);
         Physics.IgnoreCollision(settledPlayer.GetComponent<Collider>(), shop.GetComponent<Collider>());
         settledPlayer.GetComponent<Transform>().position = shop.GetComponent<Transform>().position;
         settledPlayer.GetComponent<Rigidbody>().velocity = Vector3.zero;
         settledPlayer.GetComponent<Rigidbody>().isKinematic = false;
         settledPlayer.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        shop.GetComponent<Shop>().settledPlayer = settledPlayer;
         RpcSettlePlayerInShop(settledPlayerID, shopID);
     }
 
@@ -104,6 +102,7 @@ public class ObjectManager : NetworkBehaviour
         settledPlayer.GetComponent<Rigidbody>().velocity = Vector3.zero;
         settledPlayer.GetComponent<Rigidbody>().isKinematic = false;
         settledPlayer.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        shop.GetComponent<Shop>().settledPlayer = settledPlayer;
     }
 
     public static ObjectManager GetInstance()

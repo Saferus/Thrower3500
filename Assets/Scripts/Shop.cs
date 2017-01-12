@@ -10,7 +10,7 @@ public class Shop : NetworkBehaviour, IPointerClickHandler {
     public Vector3 uiPos;
     private GameObject attackUI;
 
-    public Component settledPlayer;
+    public GameObject settledPlayer;
 
     public void OnPointerClick(PointerEventData eventData)
     {
