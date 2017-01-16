@@ -4,7 +4,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class Shop : NetworkBehaviour, IPointerClickHandler {
+public class Shop : NetworkBehaviour, IPointerClickHandler
+{
+    public float deffenceBonus;
+    public float cashBonus;
 
     public GameObject UIAttack;
     public Vector3 uiPos;

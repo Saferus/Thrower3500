@@ -195,5 +195,12 @@ public class Mafia : NetworkBehaviour
             shopWhereIAm.GetComponent<Shop>().OnSettleDead();
         }
     }
+
+    public float GetShopDefenceBonus()
+    {
+        if (shopWhereIAm == null)
+            return 1;
+        return shopWhereIAm.GetComponent<Shop>().deffenceBonus;
+    }
 }
 

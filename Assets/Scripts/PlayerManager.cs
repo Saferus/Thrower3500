@@ -12,7 +12,10 @@ public class PlayerManager : NetworkBehaviour
     {
         if (!connectedPlayers.ContainsKey(deviceID))
         {
-            SpawnMafia(deviceID);
+            string player = "Player" + dictionaryLenght;
+            connectedPlayers.Add(deviceID, player);
+            dictionaryLenght++;
+            SpawnMafia(player);
         }
         GameObject[] playersMafia = GameObject.FindGameObjectsWithTag(connectedPlayers[deviceID]);
 
@@ -34,12 +37,10 @@ public class PlayerManager : NetworkBehaviour
         RpcAssignMafia(deviceID, playersMafiaIDs);
     }
 
-    private void SpawnMafia(string deviceID)
+    private void SpawnMafia(string player)
     {
-        string player = "Player" + dictionaryLenght;
-        connectedPlayers.Add(deviceID, player);
-        dictionaryLenght++;
-        GameObject mafiaObj = (GameObject)Instantiate(mafiaPrefab, Vector3.zero, Quaternion.identity);
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
+        GameObject mafiaObj = (GameObject)Instantiate(mafiaPrefab, spawnPoints[(int) Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
         mafiaObj.gameObject.tag = player;
         NetworkServer.Spawn(mafiaObj);
     }
