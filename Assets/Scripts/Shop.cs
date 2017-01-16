@@ -10,7 +10,16 @@ public class Shop : NetworkBehaviour, IPointerClickHandler {
     public Vector3 uiPos;
     private GameObject attackUI;
 
+    [SyncVar]
+    public NetworkInstanceId settledPlayerNetId = NetworkInstanceId.Invalid;
     public GameObject settledPlayer;
+
+    public void SynchronizeData()
+    {
+        if (settledPlayerNetId != NetworkInstanceId.Invalid)
+            PlayerController.GetLocalInstance()
+                .SettlePlayerInShop(settledPlayerNetId, GetComponent<NetworkIdentity>().netId);
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -32,5 +41,6 @@ public class Shop : NetworkBehaviour, IPointerClickHandler {
     public void OnSettleDead()
     {
         settledPlayer = null;
+        settledPlayerNetId = NetworkInstanceId.Invalid;
     }
 }

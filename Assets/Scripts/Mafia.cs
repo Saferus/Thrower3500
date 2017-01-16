@@ -97,9 +97,7 @@ public class Mafia : NetworkBehaviour
 
     private void OnRelease(Vector2 pos)
     {
-        Debug.Log("Mafia::OnRelease: trying to add forse on server");
         PlayerController.GetLocalInstance().AddForce(GetComponent<NetworkIdentity>().netId, startPos, pos);
-        Debug.Log("Mafia::OnRelease: trying to add forse on server");
         startInputOnObject = false;
         DeleteTrajectory();
     }

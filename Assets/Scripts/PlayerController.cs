@@ -15,6 +15,11 @@ public class PlayerController : NetworkBehaviour
     {
         CmdPlayerConnected(SystemInfo.deviceUniqueIdentifier);
         localController = this;
+        GameObject[] shops = GameObject.FindGameObjectsWithTag("Shop");
+        foreach (GameObject shop in shops)
+        {
+            shop.GetComponent<Shop>().SynchronizeData();
+        }
     }
 
     [Command]
@@ -60,6 +65,11 @@ public class PlayerController : NetworkBehaviour
 
     [ClientRpc]
     public void RpcSettlePlayerInShop(NetworkInstanceId settledPlayerID, NetworkInstanceId shopID)
+    {
+        SettlePlayerInShop(settledPlayerID, shopID);
+    }
+
+    public void SettlePlayerInShop(NetworkInstanceId settledPlayerID, NetworkInstanceId shopID)
     {
         GameObject shop = ClientScene.FindLocalObject(shopID);
         GameObject settledPlayer = ClientScene.FindLocalObject(settledPlayerID);
