@@ -15,7 +15,6 @@ public class PlayerManager : NetworkBehaviour
             SpawnMafia(deviceID);
         }
         GameObject[] playersMafia = GameObject.FindGameObjectsWithTag(connectedPlayers[deviceID]);
-        NetworkInstanceId[] playersMafiaIDs = new NetworkInstanceId[playersMafia.Length];
 
         // Just to test!
         if (playersMafia.Length == 0)
@@ -23,9 +22,11 @@ public class PlayerManager : NetworkBehaviour
             GameObject mafiaObj = (GameObject)Instantiate(mafiaPrefab, Vector3.zero, Quaternion.identity);
             mafiaObj.gameObject.tag = connectedPlayers[deviceID];
             NetworkServer.Spawn(mafiaObj);
+            playersMafia = GameObject.FindGameObjectsWithTag(connectedPlayers[deviceID]);
         }
+        NetworkInstanceId[] playersMafiaIDs = new NetworkInstanceId[playersMafia.Length];
 
-        for( int i = 0; i < playersMafia.Length; i++)
+        for ( int i = 0; i < playersMafia.Length; i++)
         {
             playersMafiaIDs[i] = playersMafia[i].GetComponent<NetworkIdentity>().netId;
         }
