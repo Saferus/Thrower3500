@@ -18,8 +18,8 @@ public class Shop : NetworkBehaviour, IPointerClickHandler {
         {
             Quaternion rot = Quaternion.AngleAxis(90, Vector3.right);
             attackUI = (GameObject)Instantiate(UIAttack, uiPos, rot);
-            GameObject.Find("Attack").GetComponent<Button>().onClick.AddListener(() => FocusManager.GetCurrentFocusedPlayer().GetComponent<PlayerController>().OnAttackClicked());
-            GameObject.Find("Settle").GetComponent<Button>().onClick.AddListener(() => FocusManager.GetCurrentFocusedPlayer().GetComponent<PlayerController>().OnSettleClicked());
+            GameObject.Find("Attack").GetComponent<Button>().onClick.AddListener(() => FocusManager.GetCurrentFocusedPlayer().GetComponent<Mafia>().OnAttackClicked());
+            GameObject.Find("Settle").GetComponent<Button>().onClick.AddListener(() => FocusManager.GetCurrentFocusedPlayer().GetComponent<Mafia>().OnSettleClicked());
             FocusManager.SetFocusedBuilding(gameObject);
         }
     }

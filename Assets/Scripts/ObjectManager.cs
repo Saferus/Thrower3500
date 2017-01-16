@@ -6,13 +6,13 @@ public class ObjectManager : NetworkBehaviour
 {
     private class Combat
     {
-        private PlayerController m_attacker;
-        private PlayerController m_defender;
+        private Mafia m_attacker;
+        private Mafia m_defender;
 
         private float m_attackerDelay;
         private float m_defenderDelay;
 
-        public Combat(PlayerController attacker, PlayerController defender)
+        public Combat(Mafia attacker, Mafia defender)
         {
             m_attackerDelay = 0;
             m_defenderDelay = 0;
@@ -42,7 +42,7 @@ public class ObjectManager : NetworkBehaviour
         }
     }
 
-    private static bool Hit(PlayerController defender, PlayerController attacker)
+    private static bool Hit(Mafia defender, Mafia attacker)
     {
         defender.currentHealth -= attacker.attackPower;
         if (defender.currentHealth > 0)
@@ -63,8 +63,8 @@ public class ObjectManager : NetworkBehaviour
 
     public void StartCombat(NetworkInstanceId attackerID, NetworkInstanceId defenderID)
     {
-        combats.Add(new Combat(NetworkServer.FindLocalObject(attackerID).GetComponent<PlayerController>(),
-                                NetworkServer.FindLocalObject(defenderID).GetComponent<PlayerController>()));
+        combats.Add(new Combat(NetworkServer.FindLocalObject(attackerID).GetComponent<Mafia>(),
+                                NetworkServer.FindLocalObject(defenderID).GetComponent<Mafia>()));
     }
 	
 	void Update ()
@@ -81,8 +81,8 @@ public class ObjectManager : NetworkBehaviour
     {
         GameObject shop = NetworkServer.FindLocalObject(shopID);
         GameObject settledPlayer = NetworkServer.FindLocalObject(settledPlayerID);
-        settledPlayer.GetComponent<PlayerController>().currentHealth = 15000;
-        settledPlayer.GetComponent<PlayerController>().OnChangeHealth(15000);
+        settledPlayer.GetComponent<Mafia>().currentHealth = 15000;
+        settledPlayer.GetComponent<Mafia>().OnChangeHealth(15000);
         Physics.IgnoreCollision(settledPlayer.GetComponent<Collider>(), shop.GetComponent<Collider>());
         settledPlayer.GetComponent<Transform>().position = shop.GetComponent<Transform>().position;
         settledPlayer.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -103,6 +103,7 @@ public class ObjectManager : NetworkBehaviour
         settledPlayer.GetComponent<Rigidbody>().isKinematic = false;
         settledPlayer.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         shop.GetComponent<Shop>().settledPlayer = settledPlayer;
+        settledPlayer.GetComponent<Mafia>().shopWhereIAm = shop;
     }
 
     public static ObjectManager GetInstance()
