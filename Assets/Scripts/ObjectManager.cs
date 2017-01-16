@@ -47,15 +47,12 @@ public class ObjectManager : NetworkBehaviour
         defender.currentHealth -= attacker.attackPower;
         if (defender.currentHealth > 0)
         {
-            defender.healthBar.fillAmount = (float)defender.currentHealth / defender.maxHealth;
+            defender.healthBar.fillAmount = (float) defender.currentHealth / defender.maxHealth;
             return false;
         }
-        defender.RpcDead();
-        if (defender.shopWhereIAm != null)
-        {
-            defender.GetComponent<Shop>().OnSettleDead();
-        }
-        Destroy(defender.gameObject);
+        PlayerController.GetInstance().RpcMafiaDead(defender.gameObject.GetComponent<NetworkIdentity>().netId);
+        defender.Dead();
+        NetworkServer.Destroy(defender.gameObject);
         return true;
     }
 
@@ -76,7 +73,7 @@ public class ObjectManager : NetworkBehaviour
                 combats.RemoveAt(i);
         }
     }
-
+    
     public void SettlePlayerInShop(NetworkInstanceId settledPlayerID, NetworkInstanceId shopID)
     {
         GameObject shop = NetworkServer.FindLocalObject(shopID);
@@ -89,21 +86,7 @@ public class ObjectManager : NetworkBehaviour
         settledPlayer.GetComponent<Rigidbody>().isKinematic = false;
         settledPlayer.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         shop.GetComponent<Shop>().settledPlayer = settledPlayer;
-        RpcSettlePlayerInShop(settledPlayerID, shopID);
-    }
-
-    [ClientRpc]
-    public void RpcSettlePlayerInShop(NetworkInstanceId settledPlayerID, NetworkInstanceId shopID)
-    {
-        GameObject shop = ClientScene.FindLocalObject(shopID);
-        GameObject settledPlayer = ClientScene.FindLocalObject(settledPlayerID);
-        Physics.IgnoreCollision(settledPlayer.GetComponent<Collider>(), shop.GetComponent<Collider>());
-        settledPlayer.GetComponent<Transform>().position = shop.GetComponent<Transform>().position;
-        settledPlayer.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        settledPlayer.GetComponent<Rigidbody>().isKinematic = false;
-        settledPlayer.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        shop.GetComponent<Shop>().settledPlayer = settledPlayer;
-        settledPlayer.GetComponent<Mafia>().shopWhereIAm = shop;
+        PlayerController.GetInstance().RpcSettlePlayerInShop(settledPlayerID, shopID);
     }
 
     public static ObjectManager GetInstance()

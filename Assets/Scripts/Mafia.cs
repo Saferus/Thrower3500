@@ -97,7 +97,9 @@ public class Mafia : NetworkBehaviour
 
     private void OnRelease(Vector2 pos)
     {
-        PlayerController.GetInstance().AddForce(GetComponent<NetworkIdentity>().netId, startPos, pos);
+        Debug.Log("Mafia::OnRelease: trying to add forse on server");
+        PlayerController.GetLocalInstance().AddForce(GetComponent<NetworkIdentity>().netId, startPos, pos);
+        Debug.Log("Mafia::OnRelease: trying to add forse on server");
         startInputOnObject = false;
         DeleteTrajectory();
     }
@@ -156,7 +158,7 @@ public class Mafia : NetworkBehaviour
     {
         Shop shop = FocusManager.GetCurrentFocusedBuilding().GetComponent<Shop>();
         if (shop.settledPlayer != null)
-            PlayerController.GetInstance().CmdOnAttackClicked(FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId,
+            PlayerController.GetLocalInstance().CmdOnAttackClicked(FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId,
                 shop.settledPlayer.GetComponent<NetworkIdentity>().netId);
         FocusManager.SetFocusedPlayer(null);
         FocusManager.SetFocusedBuilding(null);
@@ -168,7 +170,7 @@ public class Mafia : NetworkBehaviour
         Shop shop = FocusManager.GetCurrentFocusedBuilding().GetComponent<Shop>();
         if (shop.settledPlayer == null)
         {
-            PlayerController.GetInstance().CmdOnSettleClicked(FocusManager.GetCurrentFocusedBuilding().GetComponent<NetworkIdentity>().netId,
+            PlayerController.GetLocalInstance().CmdOnSettleClicked(FocusManager.GetCurrentFocusedBuilding().GetComponent<NetworkIdentity>().netId,
                                 FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId);
         }
         FocusManager.SetFocusedPlayer(null);
@@ -187,15 +189,13 @@ public class Mafia : NetworkBehaviour
     {
         rb.AddForce(new Vector3(startPos.x - pos.x, 0, startPos.y - pos.y) * speed);
     }
-
-    [ClientRpc]
-    public void RpcDead()
+    
+    public void Dead()
     {
         if (shopWhereIAm != null)
         {
-            GetComponent<Shop>().OnSettleDead();
+            shopWhereIAm.GetComponent<Shop>().OnSettleDead();
         }
-        Destroy(gameObject);
     }
 }
 

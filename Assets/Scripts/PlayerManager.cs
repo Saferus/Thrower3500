@@ -18,7 +18,6 @@ public class PlayerManager : NetworkBehaviour
             GameObject mafiaObj = (GameObject)Instantiate(mafiaPrefab, Vector3.zero, Quaternion.identity);
             mafiaObj.gameObject.tag = player;
             NetworkServer.Spawn(mafiaObj);
-            //NetworkServer.SpawnWithClientAuthority(mafiaObj, NetworkServer.FindLocalObject(connectedPlayerID).GetComponent<NetworkIdentity>().connectionToClient);
         }
         GameObject[] playersMafia = GameObject.FindGameObjectsWithTag(connectedPlayers[deviceID]);
         NetworkInstanceId[] playersMafiaIDs = new NetworkInstanceId[playersMafia.Length];
@@ -33,27 +32,19 @@ public class PlayerManager : NetworkBehaviour
     [ClientRpc]
     public void RpcAssignMafia(string deviceID, NetworkInstanceId[] playersMafiaIDs)
     {
-        Debug.Log("Thrower3500: RpcAssignMafia: deviceID = " + deviceID + " playersMafiaIDs.lenght = " + playersMafiaIDs.Length);
         if (deviceID == SystemInfo.deviceUniqueIdentifier)
         {
             GameObject[] allMafia = GameObject.FindGameObjectsWithTag("Mafia");
-            Debug.Log("My device, i have found " + allMafia.Length + " mafia.");
             foreach (GameObject mafia in allMafia)
             {
                 foreach (NetworkInstanceId netID in playersMafiaIDs)
                 {
-                    Debug.Log("Check netID...");
                     if (netID == mafia.GetComponent<NetworkIdentity>().netId)
                     {
-                        Debug.Log("My netID, set as mine");
                         mafia.GetComponent<Mafia>().isMine = true;
                     }
                 }
             }
-        }
-        else
-        {
-            Debug.Log("Not a my device, i am " + SystemInfo.deviceUniqueIdentifier);
         }
     }
 
