@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour
 {
-    public GameObject mafiaPrefab;
+    public GameObject mafiaPrefab1;
+    public GameObject mafiaPrefab2;
+    public GameObject mafiaPrefab3;
     public GameObject playerHUD;
     private static PlayerController localController;
 
@@ -23,18 +25,20 @@ public class PlayerController : NetworkBehaviour
             shop.GetComponent<Shop>().SynchronizeData();
         }
         Instantiate(playerHUD, Vector3.zero, Quaternion.identity);
-        GameObject.Find("SpawnButton").GetComponent<Button>().onClick.AddListener(() => OnSpawnClicked());
+        GameObject.Find("SpawnMafia1").GetComponent<Button>().onClick.AddListener(() => OnSpawnClicked(1));
+        GameObject.Find("SpawnMafia2").GetComponent<Button>().onClick.AddListener(() => OnSpawnClicked(2));
+        GameObject.Find("SpawnMafia3").GetComponent<Button>().onClick.AddListener(() => OnSpawnClicked(3));
     }
     
-    public void OnSpawnClicked()
+    public void OnSpawnClicked(int mafiaId)
     {
-        CmdOnSpawnClicked(SystemInfo.deviceUniqueIdentifier);
+        CmdOnSpawnClicked(SystemInfo.deviceUniqueIdentifier, mafiaId);
     }
 
     [Command]
-    public void CmdOnSpawnClicked(string deviceID)
+    public void CmdOnSpawnClicked(string deviceID, int mafiaId)
     {
-        PlayerManager.GetInstance().OnSpawnClicked(deviceID);
+        PlayerManager.GetInstance().OnSpawnClicked(deviceID, mafiaId);
     }
 
     [Command]
@@ -45,7 +49,7 @@ public class PlayerController : NetworkBehaviour
 
     public void SpawnMafia(string deviceID)
     {
-        GameObject mafiaObj = (GameObject) Instantiate(mafiaPrefab, Vector3.zero, Quaternion.identity);
+        GameObject mafiaObj = (GameObject) Instantiate(mafiaPrefab1, Vector3.zero, Quaternion.identity);
         mafiaObj.gameObject.tag = deviceID;
         NetworkServer.SpawnWithClientAuthority(mafiaObj, gameObject);
     }
