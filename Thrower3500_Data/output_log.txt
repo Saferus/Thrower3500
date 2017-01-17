@@ -19,56 +19,18 @@ Platform assembly: D:\workspace\Thrower3500\Thrower3500_Data\Managed\UnityEngine
 Loading D:\workspace\Thrower3500\Thrower3500_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
 Platform assembly: D:\workspace\Thrower3500\Thrower3500_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading D:\workspace\Thrower3500\Thrower3500_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.023 seconds
+- Completed reload, in  0.027 seconds
 Platform assembly: D:\workspace\Thrower3500\Thrower3500_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\workspace\Thrower3500\Thrower3500_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 3840x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 2.013993 ms
-Setting up 1 worker threads for Enlighten.
-  Thread -> id: 3348 -> priority: 1 
+UnloadTime: 1.014726 ms
 NullReferenceException: Object reference not set to an instance of an object
-  at PlayerController.OnStartLocalPlayer () [0x00000] in <filename unknown>:0 
-  at UnityEngine.Networking.NetworkIdentity.SetLocalPlayer (Int16 localPlayerControllerId) [0x00000] in <filename unknown>:0 
-  at UnityEngine.Networking.ClientScene.OnOwnerMessage (UnityEngine.Networking.NetworkMessage netMsg) [0x00000] in <filename unknown>:0 
-  at UnityEngine.Networking.NetworkConnection.HandleReader (UnityEngine.Networking.NetworkReader reader, Int32 receivedSize, Int32 channelId) [0x00000] in <filename unknown>:0 
-  at UnityEngine.Networking.NetworkConnection.HandleBytes (System.Byte[] buffer, Int32 receivedSize, Int32 channelId) [0x00000] in <filename unknown>:0 
-  at UnityEngine.Networking.NetworkConnection.TransportRecieve (System.Byte[] bytes, Int32 numBytes, Int32 channelId) [0x00000] in <filename unknown>:0 
-  at UnityEngine.Networking.NetworkClient.Update () [0x00000] in <filename unknown>:0 
-  at UnityEngine.Networking.NetworkClient.UpdateClients () [0x00000] in <filename unknown>:0 
-  at UnityEngine.Networking.NetworkIdentity.UNetStaticUpdate () [0x00000] in <filename unknown>:0 
+  at CameraControl.Start () [0x00000] in <filename unknown>:0 
  
 (Filename:  Line: -1)
 
-Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:55515}
-ServerDisconnected due to error: Timeout
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:51872}
-ServerDisconnected due to error: Timeout
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Log: connection {2} has been disconnected by timeout; address {::ffff:127.0.0.1:63376}
-ServerDisconnected due to error: Timeout
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:56243}
-ServerDisconnected due to error: Timeout
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Log: connection {2} has been disconnected by timeout; address {::ffff:127.0.0.1:55194}
-ServerDisconnected due to error: Timeout
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:55454}
-ServerDisconnected due to error: Timeout
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 1bd0 -> priority: 1 
