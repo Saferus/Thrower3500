@@ -24,6 +24,7 @@ public class Mafia : NetworkBehaviour
 
     public GameObject shopWhereIAm;
     public bool isMine;
+    public int type;
 
     // Use this for initialization
     void Start()

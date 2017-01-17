@@ -27,10 +27,10 @@ public class PlayerManager : NetworkBehaviour
 
     public void OnSpawnClicked(string deviceID, int mafiaId)
     {
-        GameObject[] mafiaOfThisType = GameObject.FindGameObjectsWithTag("Mafia" + mafiaId);
-        foreach (GameObject mafiaByType in mafiaOfThisType)
+        GameObject[] mafiaOfThisPlayer = GameObject.FindGameObjectsWithTag(connectedPlayers[deviceID].m_playerName);
+        foreach (GameObject mafiaByType in mafiaOfThisPlayer)
         {
-            if (mafiaByType.tag == connectedPlayers[deviceID].m_playerName)
+            if (mafiaByType.GetComponent<Mafia>().type == mafiaId)
                 return;
         }
         GameObject mafia =  SpawnMafia(connectedPlayers[deviceID], mafiaId);
@@ -79,6 +79,7 @@ public class PlayerManager : NetworkBehaviour
         mafiaObj.gameObject.tag = player.m_playerName;
         player.m_spawnCounter++;
         NetworkServer.Spawn(mafiaObj);
+        mafiaObj.GetComponent<Mafia>().type = mafiaId;
         return mafiaObj;
     }
 
@@ -87,15 +88,22 @@ public class PlayerManager : NetworkBehaviour
     {
         if (deviceID == SystemInfo.deviceUniqueIdentifier)
         {
-            GameObject[] allMafia = GameObject.FindGameObjectsWithTag("Mafia");
-            foreach (GameObject mafia in allMafia)
+            AssignAllMafiaOfType("Mafia1", playersMafiaIDs);
+            AssignAllMafiaOfType("Mafia2", playersMafiaIDs);
+            AssignAllMafiaOfType("Mafia3", playersMafiaIDs);
+        }
+    }
+
+    private void AssignAllMafiaOfType(string tag, NetworkInstanceId[] playersMafiaIDs)
+    {
+        GameObject[] allMafia = GameObject.FindGameObjectsWithTag(tag);
+        foreach (GameObject mafia in allMafia)
+        {
+            foreach (NetworkInstanceId netID in playersMafiaIDs)
             {
-                foreach (NetworkInstanceId netID in playersMafiaIDs)
+                if (netID == mafia.GetComponent<NetworkIdentity>().netId)
                 {
-                    if (netID == mafia.GetComponent<NetworkIdentity>().netId)
-                    {
-                        mafia.GetComponent<Mafia>().isMine = true;
-                    }
+                    mafia.GetComponent<Mafia>().isMine = true;
                 }
             }
         }
