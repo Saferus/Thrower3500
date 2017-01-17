@@ -4,29 +4,42 @@ using UnityEngine.Networking;
 
 public class PlayerManager : NetworkBehaviour
 {
-    private Dictionary<string, string> connectedPlayers = new Dictionary<string, string>();
-    private int dictionaryLenght = 0;
+    class Player
+    {
+        private static int s_playerCounter = 0;
+        public string m_playerName { get; private set; }
+        public int m_xpCount;
+        public int m_spawnCounter;
+
+        public Player()
+        {
+            m_playerName = "Player" + s_playerCounter;
+            m_xpCount = 0;
+            m_spawnCounter = 0;
+            s_playerCounter++;
+        }
+    }
+
+    private Dictionary<string, Player> connectedPlayers = new Dictionary<string, Player>();
     public GameObject mafiaPrefab;
+
+    public void OnSpawnClicked(string deviceID)
+    {
+        GameObject mafia =  SpawnMafia(connectedPlayers[deviceID]);
+        NetworkInstanceId[] playersMafiaIDs = new NetworkInstanceId[1];
+        playersMafiaIDs[0] = mafia.GetComponent<NetworkIdentity>().netId;
+        RpcAssignMafia(deviceID, playersMafiaIDs);
+    }
 
     public void PlayerConnected(string deviceID)
     {
         if (!connectedPlayers.ContainsKey(deviceID))
         {
-            string player = "Player" + dictionaryLenght;
+            Player player = new Player();
             connectedPlayers.Add(deviceID, player);
-            dictionaryLenght++;
             SpawnMafia(player);
         }
-        GameObject[] playersMafia = GameObject.FindGameObjectsWithTag(connectedPlayers[deviceID]);
-
-        // Just to test!
-        if (playersMafia.Length == 0)
-        {
-            GameObject mafiaObj = (GameObject)Instantiate(mafiaPrefab, Vector3.zero, Quaternion.identity);
-            mafiaObj.gameObject.tag = connectedPlayers[deviceID];
-            NetworkServer.Spawn(mafiaObj);
-            playersMafia = GameObject.FindGameObjectsWithTag(connectedPlayers[deviceID]);
-        }
+        GameObject[] playersMafia = GameObject.FindGameObjectsWithTag(connectedPlayers[deviceID].m_playerName);
         NetworkInstanceId[] playersMafiaIDs = new NetworkInstanceId[playersMafia.Length];
 
         for ( int i = 0; i < playersMafia.Length; i++)
@@ -37,12 +50,14 @@ public class PlayerManager : NetworkBehaviour
         RpcAssignMafia(deviceID, playersMafiaIDs);
     }
 
-    private void SpawnMafia(string player)
+    private GameObject SpawnMafia(Player player)
     {
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
         GameObject mafiaObj = (GameObject)Instantiate(mafiaPrefab, spawnPoints[(int) Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
-        mafiaObj.gameObject.tag = player;
+        mafiaObj.gameObject.tag = player.m_playerName;
+        player.m_spawnCounter++;
         NetworkServer.Spawn(mafiaObj);
+        return mafiaObj;
     }
 
     [ClientRpc]

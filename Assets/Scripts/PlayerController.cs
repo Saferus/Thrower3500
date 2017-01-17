@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour
 {
     public GameObject mafiaPrefab;
+    public GameObject playerHUD;
     private static PlayerController localController;
 
     public static PlayerController GetLocalInstance()
@@ -20,6 +22,19 @@ public class PlayerController : NetworkBehaviour
         {
             shop.GetComponent<Shop>().SynchronizeData();
         }
+        Instantiate(playerHUD, Vector3.zero, Quaternion.identity);
+        GameObject.Find("SpawnButton").GetComponent<Button>().onClick.AddListener(() => OnSpawnClicked());
+    }
+    
+    public void OnSpawnClicked()
+    {
+        CmdOnSpawnClicked(SystemInfo.deviceUniqueIdentifier);
+    }
+
+    [Command]
+    public void CmdOnSpawnClicked(string deviceID)
+    {
+        PlayerManager.GetInstance().OnSpawnClicked(deviceID);
     }
 
     [Command]
