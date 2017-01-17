@@ -27,8 +27,13 @@ public class PlayerManager : NetworkBehaviour
 
     public void OnSpawnClicked(string deviceID, int mafiaId)
     {
-
-        GameObject mafia =  SpawnMafia(connectedPlayers[deviceID]);
+        GameObject[] mafiaOfThisType = GameObject.FindGameObjectsWithTag("Mafia" + mafiaId);
+        foreach (GameObject mafiaByType in mafiaOfThisType)
+        {
+            if (mafiaByType.tag == connectedPlayers[deviceID].m_playerName)
+                return;
+        }
+        GameObject mafia =  SpawnMafia(connectedPlayers[deviceID], mafiaId);
         NetworkInstanceId[] playersMafiaIDs = new NetworkInstanceId[1];
         playersMafiaIDs[0] = mafia.GetComponent<NetworkIdentity>().netId;
         RpcAssignMafia(deviceID, playersMafiaIDs);
@@ -52,10 +57,25 @@ public class PlayerManager : NetworkBehaviour
         RpcAssignMafia(deviceID, playersMafiaIDs);
     }
 
-    private GameObject SpawnMafia(Player player)
+    private GameObject SpawnMafia(Player player, int mafiaId)
     {
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
-        GameObject mafiaObj = (GameObject)Instantiate(mafiaPrefab1, spawnPoints[(int) Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
+        GameObject mafiaPrefab = null;
+
+        switch (mafiaId)
+        {
+            case 1:
+                    mafiaPrefab = mafiaPrefab1;
+                    break;
+            case 2:
+                    mafiaPrefab = mafiaPrefab2;
+                    break;
+            case 3:
+                    mafiaPrefab = mafiaPrefab3;
+                    break;
+        }
+
+        GameObject mafiaObj = Instantiate(mafiaPrefab, spawnPoints[(int) Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
         mafiaObj.gameObject.tag = player.m_playerName;
         player.m_spawnCounter++;
         NetworkServer.Spawn(mafiaObj);
