@@ -23,6 +23,7 @@ public class Mafia : NetworkBehaviour
     public int currentHealth = 20000;
     public Image healthBar;
 
+    public GameObject UIAttack;
     public GameObject shopWhereIAm;
     public bool isMine;
     public int type;
@@ -116,7 +117,7 @@ public class Mafia : NetworkBehaviour
         {
             if (FocusManager.GetCurrentFocusedPlayer() != null)
             {
-
+                UIAttack.GetComponent<AttackUIController>().ShowOnShop();
             }
         }
     }
