@@ -1,9 +1,8 @@
 *.apk
 *.exe
+*.csproj
 Temp/
 Library/
 Thrower3500_Data/
 Game_Data/
 .vs/
-Thrower3500.Editor.csproj
-Thrower3500.csproj
