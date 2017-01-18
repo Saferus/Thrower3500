@@ -5,4 +5,5 @@ Library/
 Thrower3500_Data/
 Game_Data/
 .vs/
-*.csproj
+Thrower3500.Editor.csproj
+Thrower3500.csproj
