@@ -19,18 +19,13 @@ Platform assembly: D:\workspace\Thrower3500\Thrower3500_Data\Managed\UnityEngine
 Loading D:\workspace\Thrower3500\Thrower3500_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
 Platform assembly: D:\workspace\Thrower3500\Thrower3500_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading D:\workspace\Thrower3500\Thrower3500_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.027 seconds
+- Completed reload, in  0.021 seconds
 Platform assembly: D:\workspace\Thrower3500\Thrower3500_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\workspace\Thrower3500\Thrower3500_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 3840x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.014726 ms
-NullReferenceException: Object reference not set to an instance of an object
-  at CameraControl.Start () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
+UnloadTime: 1.011325 ms
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 1bd0 -> priority: 1 
+  Thread -> id: 11f0 -> priority: 1 

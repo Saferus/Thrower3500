@@ -8,6 +8,7 @@ public class Mafia : NetworkBehaviour
     public GameObject trajectory;
     public GameObject trajectoryInstance;
     public float trajectoryScale;
+    private float trajectoryAngle = 0;
 
     private Rigidbody rb;
     private bool startInputOnObject;
@@ -37,11 +38,6 @@ public class Mafia : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isMine)
-        {
-            return;
-        }
-
         if (startInputOnObject)
         {
             if (Application.platform == RuntimePlatform.Android)
@@ -86,21 +82,37 @@ public class Mafia : NetworkBehaviour
 
     private void OnPress(Vector2 pos)
     {
-        startPos = new Vector2(pos.x, pos.y);
-        CreateTrajectory();
-        FocusManager.SetFocusedPlayer(gameObject);
+        if (isMine)
+        {
+            startPos = new Vector2(pos.x, pos.y);
+            CreateTrajectory();
+            FocusManager.SetFocusedPlayer(gameObject);
+            Camera.main.GetComponent<CameraControl>().isFixed = true;
+        }
     }
 
     private void OnDrag(Vector2 pos)
     {
-        RescaleTrajectory(pos);
+        if (isMine)
+            RescaleTrajectory(pos);
     }
 
     private void OnRelease(Vector2 pos)
     {
-        PlayerController.GetLocalInstance().AddForce(GetComponent<NetworkIdentity>().netId, startPos, pos);
-        startInputOnObject = false;
-        DeleteTrajectory();
+        if (isMine)
+        {
+            PlayerController.GetLocalInstance().AddForce(GetComponent<NetworkIdentity>().netId, startPos, pos);
+            startInputOnObject = false;
+            DeleteTrajectory();
+            Camera.main.GetComponent<CameraControl>().isFixed = false;
+        }
+        else
+        {
+            if (FocusManager.GetCurrentFocusedPlayer() != null)
+            {
+
+            }
+        }
     }
 
     private void CreateTrajectory()
@@ -110,9 +122,6 @@ public class Mafia : NetworkBehaviour
         trajectoryInstance = (GameObject)Instantiate(trajectory, pos, rot);
         RescaleTrajectory(pos);
     }
-
-    private static float TRAJECTORY_START_ANGLE = Mathf.PI / 2;
-    private float trajectoryAngle = TRAJECTORY_START_ANGLE;
 
     private void RescaleTrajectory(Vector3 pos)
     {
@@ -129,13 +138,13 @@ public class Mafia : NetworkBehaviour
 
     private void DeleteTrajectory()
     {
-        trajectoryAngle = TRAJECTORY_START_ANGLE;
+        trajectoryAngle = 0;
         Destroy(trajectoryInstance);
     }
 
     private void OnMouseOver()
     {
-        if (!isMine || shopWhereIAm != null)
+        if (shopWhereIAm != null)
         {
             return;
         }
@@ -152,41 +161,17 @@ public class Mafia : NetworkBehaviour
         else
             healthBar.fillAmount = (float)currentHealth / maxHealth;
     }
-
-    public void OnAttackClicked()
-    {
-        Shop shop = FocusManager.GetCurrentFocusedBuilding().GetComponent<Shop>();
-        if (shop.settledPlayer != null)
-            PlayerController.GetLocalInstance().CmdOnAttackClicked(FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId,
-                shop.settledPlayer.GetComponent<NetworkIdentity>().netId);
-        FocusManager.SetFocusedPlayer(null);
-        FocusManager.SetFocusedBuilding(null);
-        shop.HideUI();
-    }
-
-    public void OnSettleClicked()
-    {
-        Shop shop = FocusManager.GetCurrentFocusedBuilding().GetComponent<Shop>();
-        if (shop.settledPlayer == null)
-        {
-            PlayerController.GetLocalInstance().CmdOnSettleClicked(FocusManager.GetCurrentFocusedBuilding().GetComponent<NetworkIdentity>().netId,
-                                FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId);
-        }
-        FocusManager.SetFocusedPlayer(null);
-        FocusManager.SetFocusedBuilding(null);
-        shop.HideUI();
-    }
     
     public void AddForce(Vector2 startPos, Vector2 pos)
     {
-        rb.AddForce(new Vector3(startPos.x - pos.x, 0, startPos.y - pos.y) * speed);
+        rb.AddForce(new Vector3(startPos.y - pos.y, 0, pos.x - startPos.x) * speed);
         RpcAddClientForce(startPos, pos);
     }
 
     [ClientRpc]
     public void RpcAddClientForce(Vector2 startPos, Vector2 pos)
     {
-        rb.AddForce(new Vector3(startPos.x - pos.x, 0, startPos.y - pos.y) * speed);
+        rb.AddForce(new Vector3(startPos.y - pos.y, 0, pos.x - startPos.x) * speed);
     }
     
     public void Dead()

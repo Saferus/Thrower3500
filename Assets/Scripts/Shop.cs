@@ -1,8 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 
 public class Shop : NetworkBehaviour, IPointerClickHandler
 {
@@ -10,8 +8,6 @@ public class Shop : NetworkBehaviour, IPointerClickHandler
     public float cashBonus;
 
     public GameObject UIAttack;
-    public Vector3 uiPos;
-    private GameObject attackUI;
 
     [SyncVar]
     public NetworkInstanceId settledPlayerNetId = NetworkInstanceId.Invalid;
@@ -28,22 +24,35 @@ public class Shop : NetworkBehaviour, IPointerClickHandler
     {
         if (FocusManager.GetCurrentFocusedPlayer() != null)
         {
-            Quaternion rot = Quaternion.AngleAxis(90, Vector3.right);
-            attackUI = (GameObject)Instantiate(UIAttack, uiPos, rot);
-            GameObject.Find("Attack").GetComponent<Button>().onClick.AddListener(() => FocusManager.GetCurrentFocusedPlayer().GetComponent<Mafia>().OnAttackClicked());
-            GameObject.Find("Settle").GetComponent<Button>().onClick.AddListener(() => FocusManager.GetCurrentFocusedPlayer().GetComponent<Mafia>().OnSettleClicked());
-            FocusManager.SetFocusedBuilding(gameObject);
+            UIAttack.GetComponent<AttackUIController>().ShowOnShop();
         }
-    }
-
-    public void HideUI()
-    {
-        Destroy(attackUI);
     }
 
     public void OnSettleDead()
     {
         settledPlayer = null;
         settledPlayerNetId = NetworkInstanceId.Invalid;
+    }
+
+    public static void OnAttackClicked()
+    {
+        Shop shop = FocusManager.GetCurrentFocusedBuilding().GetComponent<Shop>();
+        if (shop.settledPlayer != null)
+            PlayerController.GetLocalInstance().CmdOnAttackClicked(FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId,
+                shop.settledPlayer.GetComponent<NetworkIdentity>().netId);
+        FocusManager.SetFocusedPlayer(null);
+        FocusManager.SetFocusedBuilding(null);
+    }
+
+    public static void OnSettleClicked()
+    {
+        Shop shop = FocusManager.GetCurrentFocusedBuilding().GetComponent<Shop>();
+        if (shop.settledPlayer == null)
+        {
+            PlayerController.GetLocalInstance().CmdOnSettleClicked(FocusManager.GetCurrentFocusedBuilding().GetComponent<NetworkIdentity>().netId,
+                                FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId);
+        }
+        FocusManager.SetFocusedPlayer(null);
+        FocusManager.SetFocusedBuilding(null);
     }
 }
