@@ -16,6 +16,7 @@ public class PlayersTextFieldRenderer : NetworkBehaviour {
             Destroy(this);
             return;
         }
+        text = gameObject;
         Instantiate(text, Vector3.zero, Quaternion.identity);
         //text.transform.Find("PlayersInfo").GetComponent<Text>().text = "init";
     }
@@ -24,6 +25,6 @@ public class PlayersTextFieldRenderer : NetworkBehaviour {
 	void Update ()
     {
         string info = PlayerManager.GetInstance().GetPlayersInfo();
-        //text.transform.Find("PlayersInfo").GetComponentInChildren<Text>().text = info;
+        text.transform.Find("PlayersInfo").GetComponentInChildren<Text>().text = info;
     }
 }
