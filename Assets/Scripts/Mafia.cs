@@ -117,7 +117,8 @@ public class Mafia : NetworkBehaviour
         {
             if (FocusManager.GetCurrentFocusedPlayer() != null)
             {
-                UIAttack.GetComponent<AttackUIController>().ShowOnShop();
+                FocusManager.SetFocusedEnemy(gameObject);
+                UIAttack.GetComponent<AttackUIController>().ShowOnEnemy();
             }
         }
     }
