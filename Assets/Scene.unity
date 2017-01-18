@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 281394488}
   - component: {fileID: 281394487}
   - component: {fileID: 281394486}
+  - component: {fileID: 281394489}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -256,6 +257,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &281394489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 281394485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f328890747254cc4797cb8419fbcb2c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1775374517741868, guid: fec545692c493af41b2ef08569296e88, type: 2}
 --- !u!1 &314617466
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,6 +527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragSpeed: 0.2
+  androidZoomSpeed: 0.5
   isFixed: 0
 --- !u!81 &685693682
 AudioListener:
