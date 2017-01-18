@@ -32,8 +32,13 @@ public class PlayerManager : NetworkBehaviour
 
     public void OnSpawnClicked(string deviceID, int mafiaId)
     {
-
-        GameObject mafia =  SpawnMafia(connectedPlayers[deviceID]);
+        GameObject[] mafiaOfThisPlayer = GameObject.FindGameObjectsWithTag(connectedPlayers[deviceID].m_playerName);
+        foreach (GameObject mafiaByType in mafiaOfThisPlayer)
+        {
+            if (mafiaByType.GetComponent<Mafia>().type == mafiaId)
+                return;
+        }
+        GameObject mafia =  SpawnMafia(connectedPlayers[deviceID], mafiaId);
         NetworkInstanceId[] playersMafiaIDs = new NetworkInstanceId[1];
         playersMafiaIDs[0] = mafia.GetComponent<NetworkIdentity>().netId;
         RpcAssignMafia(deviceID, playersMafiaIDs);
@@ -57,13 +62,29 @@ public class PlayerManager : NetworkBehaviour
         RpcAssignMafia(deviceID, playersMafiaIDs);
     }
 
-    private GameObject SpawnMafia(Player player)
+    private GameObject SpawnMafia(Player player, int mafiaId)
     {
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
-        GameObject mafiaObj = (GameObject)Instantiate(mafiaPrefab1, spawnPoints[(int) Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
+        GameObject mafiaPrefab = null;
+
+        switch (mafiaId)
+        {
+            case 1:
+                    mafiaPrefab = mafiaPrefab1;
+                    break;
+            case 2:
+                    mafiaPrefab = mafiaPrefab2;
+                    break;
+            case 3:
+                    mafiaPrefab = mafiaPrefab3;
+                    break;
+        }
+
+        GameObject mafiaObj = Instantiate(mafiaPrefab, spawnPoints[(int) Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
         mafiaObj.gameObject.tag = player.m_playerName;
         player.m_spawnCounter++;
         NetworkServer.Spawn(mafiaObj);
+        mafiaObj.GetComponent<Mafia>().type = mafiaId;
         return mafiaObj;
     }
 
@@ -72,15 +93,22 @@ public class PlayerManager : NetworkBehaviour
     {
         if (deviceID == SystemInfo.deviceUniqueIdentifier)
         {
-            GameObject[] allMafia = GameObject.FindGameObjectsWithTag("Mafia");
-            foreach (GameObject mafia in allMafia)
+            AssignAllMafiaOfType("Mafia1", playersMafiaIDs);
+            AssignAllMafiaOfType("Mafia2", playersMafiaIDs);
+            AssignAllMafiaOfType("Mafia3", playersMafiaIDs);
+        }
+    }
+
+    private void AssignAllMafiaOfType(string tag, NetworkInstanceId[] playersMafiaIDs)
+    {
+        GameObject[] allMafia = GameObject.FindGameObjectsWithTag(tag);
+        foreach (GameObject mafia in allMafia)
+        {
+            foreach (NetworkInstanceId netID in playersMafiaIDs)
             {
-                foreach (NetworkInstanceId netID in playersMafiaIDs)
+                if (netID == mafia.GetComponent<NetworkIdentity>().netId)
                 {
-                    if (netID == mafia.GetComponent<NetworkIdentity>().netId)
-                    {
-                        mafia.GetComponent<Mafia>().isMine = true;
-                    }
+                    mafia.GetComponent<Mafia>().isMine = true;
                 }
             }
         }

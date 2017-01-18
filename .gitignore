@@ -2,3 +2,6 @@
 *.exe
 Temp/
 Library/
+Thrower3500_Data/
+.vs/
+*.cspro

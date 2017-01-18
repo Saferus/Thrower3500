@@ -1,32 +1,38 @@
 ﻿using UnityEngine;
 
 public class FocusManager : MonoBehaviour {
-    
-    private static GameObject selectedPlayer;
-    private static GameObject selectedBuilding;
+
+    private static GameObject focusedPlayer;
+    private static GameObject focusedEnemy;
+    private static GameObject focusedBuilding;
 
     public static GameObject GetCurrentFocusedPlayer()
     {
-        return selectedPlayer;
+        return focusedPlayer;
+    }
+
+    public static GameObject GetCurrentFocusedEnemy()
+    {
+        return focusedEnemy;
     }
 
     public static void SetFocusedPlayer(GameObject player)
     {
-        selectedPlayer = player;
+        focusedPlayer = player;
+    }
+
+    public static void SetFocusedEnemy(GameObject player)
+    {
+        focusedEnemy = player;
     }
 
     public static GameObject GetCurrentFocusedBuilding()
     {
-        return selectedBuilding;
+        return focusedBuilding;
     }
 
     public static void SetFocusedBuilding(GameObject building)
     {
-        selectedBuilding = building;
-    }
-
-    public static void OnAttackClicked()
-    {
-        selectedPlayer.GetComponent<MeshRenderer>().material.color = Color.yellow;
+        focusedBuilding = building;
     }
 }
