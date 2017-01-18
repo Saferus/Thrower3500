@@ -24,6 +24,7 @@ public class Shop : NetworkBehaviour, IPointerClickHandler
     {
         if (FocusManager.GetCurrentFocusedPlayer() != null)
         {
+            FocusManager.SetFocusedBuilding(gameObject);
             UIAttack.GetComponent<AttackUIController>().ShowOnShop();
         }
     }

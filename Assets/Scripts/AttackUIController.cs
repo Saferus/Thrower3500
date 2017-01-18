@@ -8,14 +8,15 @@ public class AttackUIController : MonoBehaviour
     private const int TYPE_ON_ENEMY = TYPE_ON_SHOP + 1;
 
     public GameObject UIAttackPrefab;
+    public GameObject UIAttackInstance;
     private int type;
 
     private void Instantiate()
     {
         Quaternion rot = Quaternion.AngleAxis(90, Vector3.right);
-        Instantiate(UIAttackPrefab, Vector3.zero, rot);
-        gameObject.transform.Find("Attack").GetComponent<Button>().onClick.AddListener(() => OnAttack());
-        gameObject.transform.Find("Settle").GetComponent<Button>().onClick.AddListener(() => OnSettle());
+        UIAttackInstance = Instantiate(UIAttackPrefab, Vector3.zero, rot);
+        GameObject.Find("Attack").GetComponent<Button>().onClick.AddListener(() => OnAttack());
+        GameObject.Find("Settle").GetComponent<Button>().onClick.AddListener(() => OnSettle());
     }
 
     public void ShowOnShop()
@@ -54,8 +55,8 @@ public class AttackUIController : MonoBehaviour
         }
     }
 
-    public static void HideUI()
+    public void HideUI()
     {
-        Destroy(GameObject.Find("AttackUI"));
+        Destroy(UIAttackInstance);
     }
 }
