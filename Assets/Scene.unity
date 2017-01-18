@@ -212,6 +212,7 @@ MonoBehaviour:
     type: 2}
   mafiaPrefab3: {fileID: 1572772214061520, guid: 73df1bd14848d084ea7314d8cd3f41b5,
     type: 2}
+  damageToExpCoef: 2
 --- !u!114 &281394487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,7 +737,7 @@ MonoBehaviour:
   m_NetworkPort: 7777
   m_ServerBindToIP: 0
   m_ServerBindAddress: 
-  m_NetworkAddress: localhost
+  m_NetworkAddress: 10.60.233.59
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 0
   m_ScriptCRCCheck: 1
@@ -1485,7 +1486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deffenceBonus: 0.5
-  cashBonus: 0
+  xpBonus: 0
   UIAttack: {fileID: 1000011899546404, guid: 558c3e73f4e355947904110e816a5bbe, type: 2}
   settledPlayer: {fileID: 0}
 --- !u!114 &1670348635
