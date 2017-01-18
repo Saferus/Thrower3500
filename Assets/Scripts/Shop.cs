@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 public class Shop : NetworkBehaviour, IPointerClickHandler
 {
     public float deffenceBonus;
-    public float cashBonus;
+    public int xpBonus;
 
     public GameObject UIAttack;
 

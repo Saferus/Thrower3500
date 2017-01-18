@@ -8,6 +8,7 @@ public class PlayerController : NetworkBehaviour
     public GameObject mafiaPrefab2;
     public GameObject mafiaPrefab3;
     public GameObject playerHUD;
+
     private static PlayerController localController;
 
     public static PlayerController GetLocalInstance()

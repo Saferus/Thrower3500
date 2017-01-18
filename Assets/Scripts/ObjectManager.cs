@@ -44,7 +44,9 @@ public class ObjectManager : NetworkBehaviour
 
     private static bool Hit(Mafia defender, Mafia attacker)
     {
-        defender.currentHealth -= (int) (defender.GetShopDefenceBonus() * attacker.attackPower);
+        int damage = (int)(defender.GetShopDefenceBonus() * attacker.attackPower);
+        PlayerManager.GetInstance().OnMafiaDamageGiven(attacker.gameObject, damage);
+        defender.currentHealth -= damage;
         if (defender.currentHealth > 0)
         {
             defender.healthBar.fillAmount = (float) defender.currentHealth / defender.maxHealth;

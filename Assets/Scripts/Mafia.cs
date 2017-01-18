@@ -38,6 +38,12 @@ public class Mafia : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isServer && shopWhereIAm != null)
+        {
+            PlayerManager.GetInstance().OnMafiaXPGiven(gameObject, (int) (shopWhereIAm.GetComponent<Shop>().xpBonus * Time.deltaTime * 1000));
+            return;
+        }
+
         if (startInputOnObject)
         {
             if (Application.platform == RuntimePlatform.Android)
