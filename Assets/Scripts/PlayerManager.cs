@@ -18,6 +18,11 @@ public class PlayerManager : NetworkBehaviour
             m_spawnCounter = 0;
             s_playerCounter++;
         }
+
+        public string GetInfo()
+        {
+            return m_playerName + " : xp=" + m_xpCount + "; spawnCounter=" + m_spawnCounter;
+        }
     }
 
     private Dictionary<string, Player> connectedPlayers = new Dictionary<string, Player>();
@@ -84,5 +89,15 @@ public class PlayerManager : NetworkBehaviour
     public static PlayerManager GetInstance()
     {
         return GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+    }
+
+    public string GetPlayersInfo()
+    {
+        string info = "";
+        foreach (Player player in connectedPlayers.Values)
+        {
+            info += player.GetInfo() + "\n";
+        }
+        return info;
     }
 }
