@@ -23,6 +23,7 @@ public class Mafia : NetworkBehaviour
     public int currentHealth = 20000;
     public Image healthBar;
 
+    public GameObject UIAttack;
     public GameObject shopWhereIAm;
     public bool isMine;
     public int type;
@@ -38,6 +39,12 @@ public class Mafia : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isServer && shopWhereIAm != null)
+        {
+            PlayerManager.GetInstance().OnMafiaXPGiven(gameObject, (int) (shopWhereIAm.GetComponent<Shop>().xpBonus * Time.deltaTime * 1000));
+            return;
+        }
+
         if (startInputOnObject)
         {
             if (Application.platform == RuntimePlatform.Android)
@@ -110,7 +117,8 @@ public class Mafia : NetworkBehaviour
         {
             if (FocusManager.GetCurrentFocusedPlayer() != null)
             {
-
+                FocusManager.SetFocusedEnemy(gameObject);
+                UIAttack.GetComponent<AttackUIController>().ShowOnEnemy();
             }
         }
     }

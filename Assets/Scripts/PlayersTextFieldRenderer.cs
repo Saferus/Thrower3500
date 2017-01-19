@@ -16,14 +16,14 @@ public class PlayersTextFieldRenderer : NetworkBehaviour {
             Destroy(this);
             return;
         }
-        Instantiate(text, Vector3.zero, Quaternion.identity);
-        //text.transform.Find("PlayersInfo").GetComponent<Text>().text = "init";
+        text = Instantiate(text, Vector3.zero, Quaternion.identity);
+        text.transform.Find("PlayersInfo").GetComponent<Text>().text = "init";
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
         string info = PlayerManager.GetInstance().GetPlayersInfo();
-        //text.transform.Find("PlayersInfo").GetComponentInChildren<Text>().text = info;
+        text.transform.Find("PlayersInfo").GetComponent<Text>().text = info;
     }
 }

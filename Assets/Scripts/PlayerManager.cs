@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.Networking;
 
 public class PlayerManager : NetworkBehaviour
@@ -30,6 +31,8 @@ public class PlayerManager : NetworkBehaviour
     public GameObject mafiaPrefab2;
     public GameObject mafiaPrefab3;
 
+    public float damageToExpCoef = 2;
+
     public void OnSpawnClicked(string deviceID, int mafiaId)
     {
         GameObject[] mafiaOfThisPlayer = GameObject.FindGameObjectsWithTag(connectedPlayers[deviceID].m_playerName);
@@ -38,7 +41,7 @@ public class PlayerManager : NetworkBehaviour
             if (mafiaByType.GetComponent<Mafia>().type == mafiaId)
                 return;
         }
-        GameObject mafia =  SpawnMafia(connectedPlayers[deviceID], mafiaId);
+        GameObject mafia = SpawnMafia(connectedPlayers[deviceID], mafiaId);
         NetworkInstanceId[] playersMafiaIDs = new NetworkInstanceId[1];
         playersMafiaIDs[0] = mafia.GetComponent<NetworkIdentity>().netId;
         RpcAssignMafia(deviceID, playersMafiaIDs);
@@ -54,7 +57,7 @@ public class PlayerManager : NetworkBehaviour
         GameObject[] playersMafia = GameObject.FindGameObjectsWithTag(connectedPlayers[deviceID].m_playerName);
         NetworkInstanceId[] playersMafiaIDs = new NetworkInstanceId[playersMafia.Length];
 
-        for ( int i = 0; i < playersMafia.Length; i++)
+        for (int i = 0; i < playersMafia.Length; i++)
         {
             playersMafiaIDs[i] = playersMafia[i].GetComponent<NetworkIdentity>().netId;
         }
@@ -70,17 +73,18 @@ public class PlayerManager : NetworkBehaviour
         switch (mafiaId)
         {
             case 1:
-                    mafiaPrefab = mafiaPrefab1;
-                    break;
+                mafiaPrefab = mafiaPrefab1;
+                break;
             case 2:
-                    mafiaPrefab = mafiaPrefab2;
-                    break;
+                mafiaPrefab = mafiaPrefab2;
+                break;
             case 3:
-                    mafiaPrefab = mafiaPrefab3;
-                    break;
+                mafiaPrefab = mafiaPrefab3;
+                break;
         }
 
-        GameObject mafiaObj = Instantiate(mafiaPrefab, spawnPoints[(int) Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
+        GameObject mafiaObj = Instantiate(mafiaPrefab,
+            spawnPoints[(int) Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
         mafiaObj.gameObject.tag = player.m_playerName;
         player.m_spawnCounter++;
         NetworkServer.Spawn(mafiaObj);
@@ -127,5 +131,22 @@ public class PlayerManager : NetworkBehaviour
             info += player.GetInfo() + "\n";
         }
         return info;
+    }
+
+    public void OnMafiaDamageGiven(GameObject mafia, int damage)
+    {
+        OnMafiaXPGiven(mafia, (int) (damage * damageToExpCoef));
+    }
+
+    public void OnMafiaXPGiven(GameObject mafia, int damage)
+    {
+        foreach (Player player in connectedPlayers.Values.ToList())
+        {
+            if (mafia.tag == player.m_playerName)
+            {
+                player.m_xpCount += damage;
+                return;
+            }
+        }
     }
 }
