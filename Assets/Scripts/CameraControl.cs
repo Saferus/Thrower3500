@@ -52,25 +52,24 @@ public class CameraControl : MonoBehaviour
 	            }
 	            float currentDZoom = currentDistance - prevDistance;
 
-	            float dx0 = Input.touches[0].position.x - prevTouch0.position.x;
-	            float dx1 = Input.touches[1].position.x - prevTouch1.position.x;
+	            float dy0 = Input.touches[0].position.y - prevTouch0.position.y;
+	            float dy1 = Input.touches[1].position.y - prevTouch1.position.y;
 
 
 	            float currentDPitch = 0;
 	            float currentDYaw = 0;
 
-	            if (dx0 > 0 && dx1 > 0)
+	            if (dy0 > 0 && dy1 > 0)
 	            {
-	                currentDPitch = Math.Min(dx0, dx1);
+	                currentDPitch = Math.Min(dy0, dy1);
 	            }
-	            if (dx0 < 0 && dx1 < 0)
+	            if (dy0 < 0 && dy1 < 0)
 	            {
-	                currentDPitch = Math.Max(dx0, dx1);
+	                currentDPitch = Math.Max(dy0, dy1);
 	            }
 
 	            ChangeAngleX(pitchCoefficient * currentDPitch);
-
-//                ChangeAngleY(yawCoefficient * ((float) Math.Acos(Vector2.Dot(currPointsVector, prevPointsVector))));
+                ChangeAngleY(IsOnTheLeftSide(prevTouch0.position, prevTouch1.position, Input.touches[0].position) * yawCoefficient * ((float) Math.Acos(Vector2.Dot(currPointsVector, prevPointsVector))));
 
 	            ChangeZoom(androidZoomSpeed * currentDZoom);
 	            prevDistance = currentDistance;
@@ -113,10 +112,17 @@ public class CameraControl : MonoBehaviour
 
 			cameraTransform.position = new Vector3 (cameraTransform.position.x, cameraHeight, cameraTransform.position.z);
 		}
-	}
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	public void ChangeZoom (float _delta)
+    private static int IsOnTheLeftSide(Vector2 pointX, Vector2 pointY, Vector2 pointXnew)
+    {
+        if ((pointY.x - pointX.x) * (pointXnew.y - pointX.y) - (pointY.y - pointX.y) * (pointXnew.x - pointX.x) > 0)
+            return -1;
+        return 1;
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    public void ChangeZoom (float _delta)
 	{
 		cameraTransform.Translate(Vector3.forward * _delta * dragSpeed * 10, Space.Self);
 		cameraHeight = cameraTransform.position.y;
@@ -145,78 +151,27 @@ public class CameraControl : MonoBehaviour
 	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void ChangeAngleX (float _angle)
     {
-        if (!float.IsNaN(_angle))
-//            cameraTransform.rotation = new Quaternion(cameraTransform.rotation.x + _angle, cameraTransform.rotation.y, cameraTransform.rotation.z, cameraTransform.rotation.w);
-        cameraTransform.localEulerAngles = new Vector3 (cameraTransform.localRotation.eulerAngles.x + _angle, cameraTransform.localRotation.eulerAngles.y, cameraTransform.localRotation.eulerAngles.z);
+        SetEulerAngle(new Vector3 (cameraTransform.localRotation.eulerAngles.x + _angle, cameraTransform.localRotation.eulerAngles.y, cameraTransform.localRotation.eulerAngles.z));
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     public void ChangeAngleY(float _angle)
     {
-        if (!float.IsNaN(_angle))
-//            cameraTransform.rotation = new Quaternion(cameraTransform.rotation.x + _angle, cameraTransform.rotation.y + _angle, cameraTransform.rotation.z, cameraTransform.rotation.w);
-        cameraTransform.localEulerAngles = new Vector3(cameraTransform.localRotation.eulerAngles.x, cameraTransform.localRotation.eulerAngles.y + _angle, cameraTransform.localRotation.eulerAngles.z);
+        SetEulerAngle(new Vector3(cameraTransform.localRotation.eulerAngles.x, cameraTransform.localRotation.eulerAngles.y + _angle, cameraTransform.localRotation.eulerAngles.z));
     }
-//    private Vector2?[] oldTouchPositions = {
-//        null,
-//        null
-//    };
-//    private Vector2 oldTouchVector;
-//    private float oldTouchDistance;
-//
-//    private void UpdateAndroid()
-//    {
-//        if (Input.touchCount == 0)
-//        {
-//            oldTouchPositions[0] = null;
-//            oldTouchPositions[1] = null;
-//        }
-//        else if (Input.touchCount == 1)
-//        {
-//            if (oldTouchPositions[0] == null || oldTouchPositions[1] != null)
-//            {
-//                oldTouchPositions[0] = Input.GetTouch(0).position;
-//                oldTouchPositions[1] = null;
-//            }
-//            else
-//            {
-//                Vector2 newTouchPosition = Input.GetTouch(0).position;
-//
-//                transform.position += transform.TransformDirection((Vector3)((oldTouchPositions[0] - newTouchPosition) * camera.orthographicSize / camera.pixelHeight * 2f));
-//
-//                oldTouchPositions[0] = newTouchPosition;
-//            }
-//        }
-//        else
-//        {
-//            if (oldTouchPositions[1] == null)
-//            {
-//                oldTouchPositions[0] = Input.GetTouch(0).position;
-//                oldTouchPositions[1] = Input.GetTouch(1).position;
-//                oldTouchVector = (Vector2)(oldTouchPositions[0] - oldTouchPositions[1]);
-//                oldTouchDistance = oldTouchVector.magnitude;
-//            }
-//            else
-//            {
-//                Vector2 screen = new Vector2(camera.pixelWidth, camera.pixelHeight);
-//
-//                Vector2[] newTouchPositions = {
-//                    Input.GetTouch(0).position,
-//                    Input.GetTouch(1).position
-//                };
-//                Vector2 newTouchVector = newTouchPositions[0] - newTouchPositions[1];
-//                float newTouchDistance = newTouchVector.magnitude;
-//
-//                transform.position += transform.TransformDirection((Vector3)((oldTouchPositions[0] + oldTouchPositions[1] - screen) * camera.orthographicSize / screen.y));
-//                transform.localRotation *= Quaternion.Euler(new Vector3(0, 0, Mathf.Asin(Mathf.Clamp((oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y) / oldTouchDistance / newTouchDistance, -1f, 1f)) / 0.0174532924f));
-//                camera.orthographicSize *= oldTouchDistance / newTouchDistance;
-//                transform.position -= transform.TransformDirection((newTouchPositions[0] + newTouchPositions[1] - screen) * camera.orthographicSize / screen.y);
-//
-//                oldTouchPositions[0] = newTouchPositions[0];
-//                oldTouchPositions[1] = newTouchPositions[1];
-//                oldTouchVector = newTouchVector;
-//                oldTouchDistance = newTouchDistance;
-//            }
-//        }
-//    }
+
+    private void SetEulerAngle(Vector3 angle)
+    {
+        if (float.IsNaN(angle.x) || float.IsNaN(angle.y) || float.IsNaN(angle.z))
+            return;
+        if (angle.x > 80)
+        {
+            angle.x = 80;
+        }
+        if (angle.x < -80)
+        {
+            angle.x = -80;
+        }
+        cameraTransform.localEulerAngles = angle;
+    }
 }
