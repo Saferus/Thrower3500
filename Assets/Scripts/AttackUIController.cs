@@ -8,7 +8,7 @@ public class AttackUIController : MonoBehaviour
     private const int TYPE_ON_ENEMY = TYPE_ON_SHOP + 1;
 
     public GameObject UIAttackPrefab;
-    public GameObject UIAttackInstance;
+    static public GameObject UIAttackInstance;
     private int type;
 
     private void Instantiate()
@@ -17,11 +17,12 @@ public class AttackUIController : MonoBehaviour
         UIAttackInstance = Instantiate(UIAttackPrefab, Vector3.zero, rot);
         GameObject.Find("Attack").GetComponent<Button>().onClick.AddListener(() => OnAttack());
         GameObject.Find("Settle").GetComponent<Button>().onClick.AddListener(() => OnSettle());
+        GameObject.Find("Cancel").GetComponent<Button>().onClick.AddListener(() => OnCancel());
     }
 
     public void ShowOnShop()
     {
-        if (FocusManager.GetCurrentFocusedPlayer() != null && FocusManager.GetCurrentFocusedBuilding() != null)
+        if (FocusManager.GetCurrentFocusedPlayer() != null && FocusManager.GetCurrentFocusedBuilding() != null && UIAttackInstance == null)
         {
             Instantiate();
             type = TYPE_ON_SHOP;
@@ -30,7 +31,7 @@ public class AttackUIController : MonoBehaviour
 
     public void ShowOnEnemy()
     {
-        if (FocusManager.GetCurrentFocusedPlayer() != null && FocusManager.GetCurrentFocusedEnemy() != null)
+        if (FocusManager.GetCurrentFocusedPlayer() != null && FocusManager.GetCurrentFocusedEnemy() != null && UIAttackInstance == null)
         {
             Instantiate();
             type = TYPE_ON_ENEMY;
@@ -53,6 +54,12 @@ public class AttackUIController : MonoBehaviour
         {
             Shop.OnSettleClicked();
         }
+    }
+
+    public void OnCancel()
+    {
+        HideUI();
+        type = TYPE_NONE;
     }
 
     public void HideUI()
