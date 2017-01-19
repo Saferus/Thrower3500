@@ -65,7 +65,7 @@ namespace Area730.UpdatesManager
                     return;
                 }
 
-                CueckUpdates(www.text);
+                //CueckUpdates(www.text);
                 SetChecked();
             }
         }
