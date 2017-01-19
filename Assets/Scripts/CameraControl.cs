@@ -164,14 +164,8 @@ public class CameraControl : MonoBehaviour
     {
         if (float.IsNaN(angle.x) || float.IsNaN(angle.y) || float.IsNaN(angle.z))
             return;
-        if (angle.x > 80)
-        {
-            angle.x = 80;
-        }
-        if (angle.x < -80)
-        {
-            angle.x = -80;
-        }
+        angle.z = 0;
+        Debug.Log("Angle to : " + angle);
         cameraTransform.localEulerAngles = angle;
     }
 }
