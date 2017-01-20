@@ -26,6 +26,19 @@ public class AttackUIController : MonoBehaviour
         {
             Instantiate();
             type = TYPE_ON_SHOP;
+
+            // hide unused button
+            Shop shop = FocusManager.GetCurrentFocusedBuilding().GetComponent<Shop>();
+            if (shop.settledPlayer == null)
+            {
+                Destroy(GameObject.Find("Attack"));
+                Vector3 posAttack = GameObject.Find("Attack").transform.position;
+                GameObject.Find("Settle").transform.position = posAttack;
+            }
+            else
+            {
+                Destroy(GameObject.Find("Settle"));
+            }
         }
     }
 
