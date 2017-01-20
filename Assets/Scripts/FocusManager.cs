@@ -18,7 +18,11 @@ public class FocusManager : MonoBehaviour {
 
     public static void SetFocusedPlayer(GameObject player)
     {
+        if (focusedPlayer != null)
+            focusedPlayer.GetComponent<Renderer>().material.color = Color.green;
         focusedPlayer = player;
+        if (focusedPlayer != null)
+            focusedPlayer.GetComponent<Renderer>().material.color = Color.yellow;
     }
 
     public static void SetFocusedEnemy(GameObject player)

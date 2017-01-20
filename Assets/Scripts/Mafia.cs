@@ -25,8 +25,14 @@ public class Mafia : NetworkBehaviour
 
     public GameObject UIAttack;
     public GameObject shopWhereIAm;
-    public bool isMine;
+    private bool isMine;
     public int type;
+
+    public void MarkAsMine()
+    {
+        isMine = true;
+        transform.GetComponent<Renderer>().material.color = Color.green;
+    }
 
     // Use this for initialization
     void Start()

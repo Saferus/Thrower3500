@@ -112,7 +112,7 @@ public class PlayerManager : NetworkBehaviour
             {
                 if (netID == mafia.GetComponent<NetworkIdentity>().netId)
                 {
-                    mafia.GetComponent<Mafia>().isMine = true;
+                    mafia.GetComponent<Mafia>().MarkAsMine();
                 }
             }
         }
