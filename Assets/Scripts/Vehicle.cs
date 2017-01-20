@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Vehicle : MonoBehaviour
 {
-    [SerializeField] private Transform trajectory;
+    [SerializeField] private Trajectory trajectory;
 
     [Header("Physics")] [SerializeField] private float acceleration;
     [SerializeField] private float maxSpeed;
@@ -12,34 +12,24 @@ public class Vehicle : MonoBehaviour
     [SerializeField] private Vector3 velocity;
     [SerializeField] private Vector3 steering;
 
-    [Header("Movemental")] [SerializeField] private float changeDistance;
+    [Header("Movemental")]
+    [SerializeField] private float changeDistance;
+    [SerializeField] private float slowMovemntRaius;
     [SerializeField] private RoadPoint waypoint;
 
-    private List<Transform> waypoints;
+    private float distance;
+
+    private List<RoadPoint> waypoints;
 
     private Vector3 directionToPoint;
-
-    // Use this for initialization
-    void Start()
-    {
-        var transformChildCount = trajectory.transform.childCount;
-
-        waypoints = new List<Transform>(transformChildCount);
-
-        for (int i = 0; i < transformChildCount; i++)
-        {
-            var child = trajectory.GetChild(i);
-            waypoints.Add(child);
-        }
-    }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-//        DebugWaypoint();
-        Accelerate();
+        distance = Vector3.Distance(waypoint.transform.position, transform.position);
 
-        float distance = Vector3.Distance(waypoint.transform.position, transform.position);
+        //        DebugWaypoint();
+        Accelerate();
 
         if (distance < changeDistance)
         {
@@ -56,7 +46,11 @@ public class Vehicle : MonoBehaviour
 
     private void Accelerate()
     {
-        Vector3 diseredVelocity = GetDirectionToPoint(waypoint.transform.position).normalized * maxSpeed;
+        var toPoint = GetDirectionToPoint(waypoint.transform.position);
+        
+//        float localMaxSpeed = Arrival(maxSpeed);
+
+        Vector3 diseredVelocity = toPoint.normalized * maxSpeed;
 //        Debug.DrawLine(transform.position, transform.position + diseredVelocity, Color.blue);
 
         steering = diseredVelocity - velocity;
@@ -70,6 +64,15 @@ public class Vehicle : MonoBehaviour
         transform.position += velocity;
 
         transform.LookAt(transform.position + velocity);
+    }
+
+    private float Arrival(float localMaxSpeed)
+    {
+        if (distance < slowMovemntRaius)
+        {
+            localMaxSpeed = Mathf.Lerp(0, maxSpeed, slowMovemntRaius*distance);
+        }
+        return localMaxSpeed;
     }
 
     private Vector3 GetDirectionToPoint(Vector3 target)

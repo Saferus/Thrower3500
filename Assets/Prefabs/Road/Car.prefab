@@ -1031,4 +1031,5 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   steering: {x: 0, y: 0, z: 0}
   changeDistance: 0.5
+  slowMovemntRaius: 1
   waypoint: {fileID: 0}

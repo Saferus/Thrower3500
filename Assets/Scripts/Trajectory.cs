@@ -6,15 +6,16 @@ using UnityEngine;
 public class Trajectory : MonoBehaviour
 {
 
-    private List<Transform> points;
+    private List<RoadPoint> points;
 
     void Start()
     {
-        points = new List<Transform>(transform.childCount);
+        var componentsInChildren = GetComponentsInChildren<RoadPoint>();
+
+        points = new List<RoadPoint>(transform.childCount);
         for (int i = 0; i < transform.childCount; i++)
         {
-            var child = transform.GetChild(i);
-            points.Add(child);
+            points.Add(componentsInChildren[i]);
         }
     }
 
@@ -25,10 +26,15 @@ public class Trajectory : MonoBehaviour
         {
             if (i != 0)
             {
-                Debug.DrawLine(prevPos, points[i].position);
+                Debug.DrawLine(prevPos, points[i].transform.position);
             }
 
             prevPos = points[i].transform.position;
         }
+    }
+
+    public List<RoadPoint> GetRoadPoints()
+    {
+        return points;
     }
 }
