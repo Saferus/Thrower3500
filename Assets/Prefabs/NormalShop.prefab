@@ -1355,7 +1355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8af61159e64732c49bdc10cba1fdb7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deffenceBonus: 0.2
+  deffenceBonus: 0.9
   xpBonus: 15
   UIAttack: {fileID: 1000011899546404, guid: 558c3e73f4e355947904110e816a5bbe, type: 2}
   settledPlayer: {fileID: 0}
