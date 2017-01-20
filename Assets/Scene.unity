@@ -2999,8 +2999,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8af61159e64732c49bdc10cba1fdb7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deffenceBonus: 0.5
-  xpBonus: 0
+  deffenceBonus: 0.7
+  xpBonus: 5
   UIAttack: {fileID: 1000011899546404, guid: 558c3e73f4e355947904110e816a5bbe, type: 2}
   settledPlayer: {fileID: 0}
 --- !u!114 &1670348635
@@ -4057,17 +4057,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4500732379383062, guid: 3911f7f9d17b0624fadfc54caf1ae8ef, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000799157511692, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+    - target: {fileID: 114530066833411326, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
         type: 2}
-      propertyPath: m_SyncRotationAxis
-      value: 3
+      propertyPath: xpBonus
+      value: 15
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114000799157511692, guid: 3911f7f9d17b0624fadfc54caf1ae8ef, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3911f7f9d17b0624fadfc54caf1ae8ef, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &2124991300 stripped

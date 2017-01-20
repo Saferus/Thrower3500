@@ -261,7 +261,6 @@ GameObject:
   - component: {fileID: 114530066833411326}
   - component: {fileID: 54273947650856390}
   - component: {fileID: 65363802738182944}
-  - component: {fileID: 114000799157511692}
   m_Layer: 0
   m_Name: NormalShop
   m_TagString: Untagged
@@ -460,8 +459,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1727068433737432}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.52272403, y: 0.226, z: 5.032711}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -2.33, y: -2.5, z: 5.032711}
   m_LocalScale: {x: 0.09361726, y: 0.09361726, z: 0.09361726}
   m_Children:
   - {fileID: 4441881045334756}
@@ -484,7 +483,7 @@ Transform:
   - {fileID: 4683363550423980}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4540720222797708
 Transform:
   m_ObjectHideFlags: 1
@@ -1313,26 +1312,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 33.56, y: 28.74, z: 24}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114000799157511692
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1727068433737432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 3
-  m_SendInterval: 0
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!114 &114175818088515332
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1376,7 +1355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8af61159e64732c49bdc10cba1fdb7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deffenceBonus: 0.5
-  cashBonus: 0
+  deffenceBonus: 0.2
+  xpBonus: 500
   UIAttack: {fileID: 1000011899546404, guid: 558c3e73f4e355947904110e816a5bbe, type: 2}
   settledPlayer: {fileID: 0}
