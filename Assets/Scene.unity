@@ -3457,7 +3457,6 @@ GameObject:
   - component: {fileID: 1670348636}
   - component: {fileID: 1670348635}
   - component: {fileID: 1670348634}
-  - component: {fileID: 1670348633}
   m_Layer: 0
   m_Name: Shop
   m_TagString: Shop
@@ -3479,27 +3478,6 @@ Transform:
   m_Father: {fileID: 588070893}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1670348633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114229989865054722, guid: 620331d50c713d141a83fbd51fa1678a,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1670348631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 3
-  m_SendInterval: 0
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
 --- !u!114 &1670348634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3512,8 +3490,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8af61159e64732c49bdc10cba1fdb7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deffenceBonus: 0.5
-  xpBonus: 0
+  deffenceBonus: 0.7
+  xpBonus: 5
   UIAttack: {fileID: 1000011899546404, guid: 558c3e73f4e355947904110e816a5bbe, type: 2}
   settledPlayer: {fileID: 0}
 --- !u!114 &1670348635
@@ -4643,9 +4621,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4500732379383062, guid: 3911f7f9d17b0624fadfc54caf1ae8ef, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+    - target: {fileID: 114530066833411326, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: xpBonus
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3911f7f9d17b0624fadfc54caf1ae8ef, type: 2}

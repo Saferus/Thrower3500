@@ -106,10 +106,10 @@ public class Mafia : NetworkBehaviour
 
     private void OnRelease(Vector2 pos)
     {
+        startInputOnObject = false;
         if (isMine)
         {
             PlayerController.GetLocalInstance().AddForce(GetComponent<NetworkIdentity>().netId, startPos, pos);
-            startInputOnObject = false;
             DeleteTrajectory();
             Camera.main.GetComponent<CameraControl>().isFixed = false;
         }

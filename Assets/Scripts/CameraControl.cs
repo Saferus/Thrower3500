@@ -14,6 +14,13 @@ public class CameraControl : MonoBehaviour
     private float prevDistance = 0;
     private bool isAndroidDevice;
 
+    private Touch prevTouch0;
+    private Touch prevTouch1;
+    private Vector2 prevPointsVector;
+    private bool startMultitouch = false;
+    public float pitchCoefficient = 0.1f;
+    public float yawCoefficient = 100f;
+
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     void Start ()
 	{
@@ -21,13 +28,6 @@ public class CameraControl : MonoBehaviour
 	    if (Application.platform == RuntimePlatform.Android)
 	        isAndroidDevice = true;
 	}
-
-    private Touch prevTouch0;
-    private Touch prevTouch1;
-    private Vector2 prevPointsVector;
-    private bool startMultitouch = false;
-    public float pitchCoefficient = 0.1f;
-    public float yawCoefficient = 100f;
 
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     void Update ()
@@ -57,7 +57,6 @@ public class CameraControl : MonoBehaviour
 
 
 	            float currentDPitch = 0;
-	            float currentDYaw = 0;
 
 	            if (dy0 > 0 && dy1 > 0)
 	            {
@@ -83,11 +82,7 @@ public class CameraControl : MonoBehaviour
                 if (Input.touchCount == 1)
                 { 
                     Vector3 translate = new Vector3(-1 * Input.touches[0].deltaPosition.x * dragSpeed, 0, -1 * Input.touches[0].deltaPosition.y * dragSpeed);
-                    Quaternion camRotation = cameraTransform.rotation;
-                    cameraTransform.rotation = new Quaternion(0, camRotation.y, camRotation.z, camRotation.w);
                     cameraTransform.Translate(translate, Space.Self);
-                    cameraTransform.rotation = camRotation;
-
                     cameraTransform.position = new Vector3(cameraTransform.position.x, cameraHeight, cameraTransform.position.z);
                 }
             }
@@ -100,15 +95,8 @@ public class CameraControl : MonoBehaviour
         {
             Vector3 translate;
 
-            if (isAndroidDevice)
-                translate = new Vector3(-1 * Input.touches[0].deltaPosition.x * dragSpeed, 0, -1 * Input.touches[0].deltaPosition.y * dragSpeed);
-            else
-                translate = new Vector3(-1 * Input.GetAxis("Mouse X") * dragSpeed, 0, -1 * Input.GetAxis("Mouse Y") * dragSpeed);
-
-            Quaternion camRotation = cameraTransform.rotation;
-			cameraTransform.rotation = new Quaternion (0, camRotation.y, camRotation.z, camRotation.w);
+            translate = new Vector3(-1 * Input.GetAxis("Mouse X") * dragSpeed, 0, -1 * Input.GetAxis("Mouse Y") * dragSpeed);
 			cameraTransform.Translate(translate, Space.Self);
-			cameraTransform.rotation = camRotation;
 
 			cameraTransform.position = new Vector3 (cameraTransform.position.x, cameraHeight, cameraTransform.position.z);
 		}
@@ -165,7 +153,6 @@ public class CameraControl : MonoBehaviour
         if (float.IsNaN(angle.x) || float.IsNaN(angle.y) || float.IsNaN(angle.z))
             return;
         angle.z = 0;
-        Debug.Log("Angle to : " + angle);
         cameraTransform.localEulerAngles = angle;
     }
 }

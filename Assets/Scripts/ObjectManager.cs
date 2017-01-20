@@ -87,6 +87,7 @@ public class ObjectManager : NetworkBehaviour
         settledPlayer.GetComponent<Rigidbody>().velocity = Vector3.zero;
         settledPlayer.GetComponent<Rigidbody>().isKinematic = false;
         settledPlayer.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        settledPlayer.GetComponent<Mafia>().shopWhereIAm = shop;
         shop.GetComponent<Shop>().settledPlayer = settledPlayer;
         shop.GetComponent<Shop>().settledPlayerNetId = settledPlayer.GetComponent<NetworkIdentity>().netId;
         PlayerController.GetInstance().RpcSettlePlayerInShop(settledPlayerID, shopID);
