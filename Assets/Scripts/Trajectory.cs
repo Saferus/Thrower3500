@@ -30,7 +30,5 @@ public class Trajectory : MonoBehaviour
 
             prevPos = points[i].transform.position;
         }
-
-        
     }
 }
