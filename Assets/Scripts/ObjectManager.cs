@@ -22,6 +22,9 @@ public class ObjectManager : NetworkBehaviour
 
         public bool Update()
         {
+            if (m_attacker == null || m_defender == null)
+                return true;
+
             m_attackerDelay += Time.deltaTime * 1000;
             m_defenderDelay += Time.deltaTime * 1000;
 
