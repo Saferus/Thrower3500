@@ -408,7 +408,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1808706695592106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.316, y: -6.151, z: 13.82}
+  m_LocalPosition: {x: -0.38, y: -6.151, z: 13.82}
   m_LocalScale: {x: 0.025439192, y: 0.025439192, z: 0.025439192}
   m_Children:
   - {fileID: 4841127420640200}
@@ -1025,10 +1025,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trajectory: {fileID: 0}
-  acceleration: 0.0005
+  acceleration: 0.0002
   maxSpeed: 0.01
-  maxForce: 0.0002
+  maxForce: 0.00018
   velocity: {x: 0, y: 0, z: 0}
   steering: {x: 0, y: 0, z: 0}
-  changeDistance: 0.4
+  changeDistance: 0.5
   waypoint: {fileID: 0}
