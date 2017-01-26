@@ -15,6 +15,7 @@ TagManager:
   - Mafia2
   - Mafia3
   - WayPoint
+  - Vehicle
   layers:
   - Default
   - TransparentFX
