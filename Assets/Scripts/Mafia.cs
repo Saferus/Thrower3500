@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -28,6 +29,9 @@ public class Mafia : NetworkBehaviour
     private bool isMine;
     public int type;
 
+    public Transform target;
+    private NavMeshAgent agent;
+
     public void MarkAsMine()
     {
         isMine = true;
@@ -40,11 +44,17 @@ public class Mafia : NetworkBehaviour
         healthBar = transform.FindChild("HealthBar").FindChild("Health").GetComponent<Image>();
         rb = GetComponent<Rigidbody>();
         healthBar.fillAmount = ((float)currentHealth) / maxHealth;
+
+        agent = gameObject.GetComponent<NavMeshAgent>();
+        if (isServer)
+        {
+            agent.SetDestination(target.position);
+        }
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         if (isServer && shopWhereIAm != null)
         {
             PlayerManager.GetInstance().OnMafiaXPGiven(gameObject, (int) (shopWhereIAm.GetComponent<Shop>().xpBonus * Time.deltaTime * 1000));

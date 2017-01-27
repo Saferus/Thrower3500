@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114728912590024182}
   - component: {fileID: 114823193776172974}
   - component: {fileID: 114147851753253360}
+  - component: {fileID: 195372319814879496}
   m_Layer: 0
   m_Name: Mafia 3
   m_TagString: Mafia3
@@ -232,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  trajectory: {fileID: 1000011806533412, guid: 952554aa4f6475546b62aacac52b06f9, type: 2}
+  trajectory: {fileID: 0}
   trajectoryInstance: {fileID: 0}
   trajectoryScale: 0.01
   attackPower: 100
@@ -242,8 +243,8 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   UIAttack: {fileID: 1000011899546404, guid: 558c3e73f4e355947904110e816a5bbe, type: 2}
   shopWhereIAm: {fileID: 0}
-  isMine: 0
   type: 0
+  target: {fileID: 4616694407148512, guid: 3911f7f9d17b0624fadfc54caf1ae8ef, type: 2}
 --- !u!114 &114786838101735942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -299,6 +300,26 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &195372319814879496
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1572772214061520}
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!222 &222462479239276446
 CanvasRenderer:
   m_ObjectHideFlags: 1
