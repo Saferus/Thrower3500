@@ -770,8 +770,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PolicePrefab: {fileID: 0}
-  heatDamageMultiplier: 0
-  heatExtinctionMultiplier: 0
+  heatDamageMultiplier: 10
+  heatExtinctionMultiplier: 100
 --- !u!1001 &486894625
 Prefab:
   m_ObjectHideFlags: 0

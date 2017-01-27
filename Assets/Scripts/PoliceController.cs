@@ -17,7 +17,11 @@ public class PoliceController : MonoBehaviour
     void Update ()
 	{
 	    HeatPower -= (int) (Time.deltaTime * heatExtinctionMultiplier);
-    }
+	    if (HeatPower < 0)
+	    {
+	        HeatPower = 0;
+	    }
+	}
 
     public static PoliceController GetInstance()
     {
