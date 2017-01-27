@@ -705,6 +705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 473586271}
   - component: {fileID: 473586270}
+  - component: {fileID: 473586272}
   m_Layer: 0
   m_Name: PoliceManager
   m_TagString: Untagged
@@ -757,6 +758,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &473586272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 473586269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3bc79b711b92b4d879093250e6589d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PolicePrefab: {fileID: 0}
+  heatDamageMultiplier: 0
+  heatExtinctionMultiplier: 0
 --- !u!1001 &486894625
 Prefab:
   m_ObjectHideFlags: 0
@@ -3935,6 +3950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deffenceBonus: 0.7
   xpBonus: 5
+  heatMultiplier: 2000
   UIAttack: {fileID: 1000011899546404, guid: 558c3e73f4e355947904110e816a5bbe, type: 2}
   settledPlayer: {fileID: 0}
 --- !u!114 &1670348635
