@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
@@ -12,17 +10,13 @@ public class CombatUnit : NetworkBehaviour {
 
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth = 20000;
-    public Image healthBar;
-    private Shop shopWhereIAm;
+    private Image healthBar;
+    public GameObject shopWhereIAm { get; set; }
 
     void Start()
     {
         healthBar = transform.FindChild("HealthBar").FindChild("Health").GetComponent<Image>();
         healthBar.fillAmount = ((float)currentHealth) / maxHealth;
-
-        Mafia mafia = gameObject.GetComponent<Mafia>();
-        if (mafia != null && mafia.shopWhereIAm != null)
-            shopWhereIAm = mafia.shopWhereIAm.GetComponent<Shop>();
     }
 
     public void OnChangeHealth(int currentHealth)

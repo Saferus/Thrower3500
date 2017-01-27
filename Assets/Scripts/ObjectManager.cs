@@ -50,11 +50,9 @@ public class ObjectManager : NetworkBehaviour
         int damage = (int)(defender.GetShopDefenceBonus() * attacker.attackPower);
         PlayerManager.GetInstance().OnMafiaDamageGiven(attacker.gameObject, damage);
         defender.currentHealth -= damage;
+        defender.OnChangeHealth(defender.currentHealth);
         if (defender.currentHealth > 0)
-        {
-            defender.healthBar.fillAmount = (float) defender.currentHealth / defender.maxHealth;
             return false;
-        }
         PlayerController.GetInstance().RpcMafiaDead(defender.gameObject.GetComponent<NetworkIdentity>().netId);
         defender.Dead();
         NetworkServer.Destroy(defender.gameObject);
@@ -89,6 +87,7 @@ public class ObjectManager : NetworkBehaviour
         settledPlayer.GetComponent<Rigidbody>().isKinematic = false;
         settledPlayer.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         settledPlayer.GetComponent<Mafia>().shopWhereIAm = shop;
+        settledPlayer.GetComponent<CombatUnit>().shopWhereIAm = shop;
         shop.GetComponent<Shop>().settledPlayer = settledPlayer;
         shop.GetComponent<Shop>().settledPlayerNetId = settledPlayer.GetComponent<NetworkIdentity>().netId;
         PlayerController.GetInstance().RpcSettlePlayerInShop(settledPlayerID, shopID);

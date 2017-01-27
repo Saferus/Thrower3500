@@ -100,6 +100,7 @@ public class PlayerController : NetworkBehaviour
         settledPlayer.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         shop.GetComponent<Shop>().settledPlayer = settledPlayer;
         settledPlayer.GetComponent<Mafia>().shopWhereIAm = shop;
+        settledPlayer.GetComponent<CombatUnit>().shopWhereIAm = shop;
     }
 
     [ClientRpc]
