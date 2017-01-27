@@ -1386,5 +1386,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deffenceBonus: 0.9
   xpBonus: 15
+  heatMultiplier: 5000
   UIAttack: {fileID: 1000011899546404, guid: 558c3e73f4e355947904110e816a5bbe, type: 2}
   settledPlayer: {fileID: 0}
