@@ -24,6 +24,7 @@ public class PlayersTextFieldRenderer : NetworkBehaviour {
 	void Update ()
     {
         string info = PlayerManager.GetInstance().GetPlayersInfo();
+        info += "HeatPower = " + PoliceController.GetInstance().HeatPower;
         text.transform.Find("PlayersInfo").GetComponent<Text>().text = info;
     }
 }

@@ -49,6 +49,7 @@ public class ObjectManager : NetworkBehaviour
     {
         int damage = (int)(defender.GetShopDefenceBonus() * attacker.attackPower);
         PlayerManager.GetInstance().OnMafiaDamageGiven(attacker.gameObject, damage);
+        PoliceController.GetInstance().DamageDealed(damage);
         defender.currentHealth -= damage;
         defender.OnChangeHealth(defender.currentHealth);
         if (defender.currentHealth > 0)

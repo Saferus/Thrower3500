@@ -29,7 +29,8 @@ public class Mafia : NetworkBehaviour
     {
         if (isServer && shopWhereIAm != null)
         {
-            PlayerManager.GetInstance().OnMafiaXPGiven(gameObject, (int) (shopWhereIAm.GetComponent<Shop>().xpBonus * Time.deltaTime * 1000));
+            PlayerManager.GetInstance().OnMafiaXPGiven(gameObject, (int)(shopWhereIAm.GetComponent<Shop>().xpBonus * Time.deltaTime * 1000));
+            PoliceController.GetInstance().ShopOccupied(shopWhereIAm);
             return;
         }
 
