@@ -5,9 +5,15 @@ using UnityEngine.UI;
 public class Mafia : NetworkBehaviour
 {
     public float speed = 1;
+    public GameObject trajectory;
+    public GameObject trajectoryInstance;
+    public float trajectoryScale;
+    private float trajectoryAngle = 0;
 
     private Rigidbody rb;
     private bool startInputOnObject;
+    private Vector2 startPos;
+    private Vector2 force;
 
     public int attackPower = 50;
     public float attackSpeed;
@@ -27,14 +33,16 @@ public class Mafia : NetworkBehaviour
         isMine = true;
         transform.GetComponent<Renderer>().material.color = Color.green;
     }
-    
+
+    // Use this for initialization
     void Start()
     {
         healthBar = transform.FindChild("HealthBar").FindChild("Health").GetComponent<Image>();
         rb = GetComponent<Rigidbody>();
         healthBar.fillAmount = ((float)currentHealth) / maxHealth;
     }
-    
+
+    // Update is called once per frame
     void Update()
     {
         if (isServer && shopWhereIAm != null)
@@ -89,18 +97,26 @@ public class Mafia : NetworkBehaviour
     {
         if (isMine)
         {
+            startPos = new Vector2(pos.x, pos.y);
+            CreateTrajectory();
             FocusManager.SetFocusedPlayer(gameObject);
             Camera.main.GetComponent<CameraControl>().isFixed = true;
         }
     }
 
-    private void OnDrag(Vector2 pos) { }
+    private void OnDrag(Vector2 pos)
+    {
+        if (isMine)
+            RescaleTrajectory(pos);
+    }
 
     private void OnRelease(Vector2 pos)
     {
         startInputOnObject = false;
         if (isMine)
         {
+            PlayerController.GetLocalInstance().AddForce(GetComponent<NetworkIdentity>().netId, startPos, pos);
+            DeleteTrajectory();
             Camera.main.GetComponent<CameraControl>().isFixed = false;
         }
         else
@@ -111,6 +127,33 @@ public class Mafia : NetworkBehaviour
                 UIAttack.GetComponent<AttackUIController>().ShowOnEnemy();
             }
         }
+    }
+
+    private void CreateTrajectory()
+    {
+        Vector3 pos = new Vector3(rb.position.x, rb.position.y, rb.position.z);
+        Quaternion rot = Quaternion.AngleAxis(Mathf.Cos(pos.x / (Mathf.Sqrt(pos.x * pos.x + pos.y * pos.y + pos.z * pos.z))), Vector3.left);
+        trajectoryInstance = (GameObject)Instantiate(trajectory, pos, rot);
+        RescaleTrajectory(pos);
+    }
+
+    private void RescaleTrajectory(Vector3 pos)
+    {
+        float delta = Mathf.Sqrt(Mathf.Pow((pos.x - startPos.x), 2) + Mathf.Pow((pos.y - startPos.y), 2));
+        float angle = 0;
+        if (delta > 0)
+            angle = Mathf.Acos((pos.y - startPos.y) / delta);
+        if (pos.x < startPos.x)
+            angle *= -1;
+        trajectoryInstance.transform.localScale = new Vector3(delta * trajectoryScale, trajectoryScale, trajectoryScale);
+        trajectoryInstance.transform.Rotate(Vector3.down * (trajectoryAngle - angle) * 180 / Mathf.PI);
+        trajectoryAngle = angle;
+    }
+
+    private void DeleteTrajectory()
+    {
+        trajectoryAngle = 0;
+        Destroy(trajectoryInstance);
     }
 
     private void OnMouseOver()
