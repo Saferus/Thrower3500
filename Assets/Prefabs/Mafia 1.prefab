@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 114040033279387186}
   - component: {fileID: 114169524488601626}
   - component: {fileID: 114126969378032376}
+  - component: {fileID: 114194652823795762}
   m_Layer: 0
   m_Name: Mafia 1
   m_TagString: Mafia1
@@ -148,17 +149,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  trajectory: {fileID: 1000011806533412, guid: 952554aa4f6475546b62aacac52b06f9, type: 2}
-  trajectoryInstance: {fileID: 0}
-  trajectoryScale: 0.01
-  attackPower: 100
-  attackSpeed: 10
-  maxHealth: 20000
-  currentHealth: 20000
-  healthBar: {fileID: 0}
   UIAttack: {fileID: 1000011899546404, guid: 558c3e73f4e355947904110e816a5bbe, type: 2}
   shopWhereIAm: {fileID: 0}
-  isMine: 0
   type: 0
 --- !u!114 &114043548349663670
 MonoBehaviour:
@@ -223,6 +215,22 @@ MonoBehaviour:
     i15: 116
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114194652823795762
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1874959476783722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9eeefe87be706448aba9c91980fcc9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPower: 50
+  attackSpeed: 10
+  maxHealth: 20000
+  currentHealth: 20000
+  healthBar: {fileID: 0}
 --- !u!114 &114221744319440042
 MonoBehaviour:
   m_ObjectHideFlags: 1

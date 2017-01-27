@@ -105,6 +105,6 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     public void RpcMafiaDead(NetworkInstanceId netID)
     {
-        ClientScene.FindLocalObject(netID).GetComponent<Mafia>().Dead();
+        ClientScene.FindLocalObject(netID).GetComponent<CombatUnit>().Dead();
     }
 }
