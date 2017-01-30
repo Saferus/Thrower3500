@@ -78,7 +78,7 @@ public class Vehicle : MonoBehaviour
 
         if (isCollisionDetect)
         {
-            onNormal -= Vector3.left * overtakingOffset;
+            onNormal += Vector3.left * overtakingOffset;
         }
 
         Vector3 V2 = Vector3.Project(V1, onNormal);
