@@ -1,14 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class PlayersTextFieldRenderer : NetworkBehaviour {
 
     public GameObject text;
-
-    // Use this for initialization
+    
     void Start ()
     {
         if (!isServer)
@@ -20,7 +17,6 @@ public class PlayersTextFieldRenderer : NetworkBehaviour {
         text.transform.Find("PlayersInfo").GetComponent<Text>().text = "init";
     }
 	
-	// Update is called once per frame
 	void Update ()
     {
         if (PoliceController.GetInstance() != null)

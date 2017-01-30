@@ -7,6 +7,7 @@ public class Shop : NetworkBehaviour, IPointerClickHandler
     public float deffenceBonus;
     public int xpBonus;
     public float heatMultiplier;
+    public int heatHideValue;
 
     public GameObject UIAttack;
 
@@ -56,5 +57,13 @@ public class Shop : NetworkBehaviour, IPointerClickHandler
         }
         FocusManager.SetFocusedPlayer(null);
         FocusManager.SetFocusedBuilding(null);
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (isServer && (heatHideValue < PoliceController.GetInstance().HeatPower) && (settledPlayer != null) && (col.gameObject.tag == "Police"))
+        {
+            col.gameObject.GetComponent<PoliceVehicle>().SpawnPolice(settledPlayer);
+        }
     }
 }
