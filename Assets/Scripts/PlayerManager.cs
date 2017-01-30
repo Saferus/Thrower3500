@@ -67,7 +67,7 @@ public class PlayerManager : NetworkBehaviour
 
     private GameObject SpawnMafia(Player player, int mafiaId)
     {
-        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("WayPoint");
         GameObject mafiaPrefab = null;
 
         switch (mafiaId)

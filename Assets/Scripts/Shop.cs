@@ -6,6 +6,7 @@ public class Shop : NetworkBehaviour, IPointerClickHandler
 {
     public float deffenceBonus;
     public int xpBonus;
+    public float heatMultiplier;
 
     public GameObject UIAttack;
 
