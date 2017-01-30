@@ -83,10 +83,7 @@ public class Vehicle : MonoBehaviour
 
         Vector3 V2 = Vector3.Project(V1, onNormal);
 
-        pathPoint = waypoint.prevPoint.transform.position + V2;
-        pathPoint += V2.normalized;
-
-//        Debug.DrawLine(transform.position, pathPoint);
+        pathPoint = waypoint.prevPoint.transform.position + V2 + onNormal.normalized * changeDistance;
     }
 
     private void CheckCollision()
