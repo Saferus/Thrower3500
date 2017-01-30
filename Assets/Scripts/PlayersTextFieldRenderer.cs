@@ -23,8 +23,11 @@ public class PlayersTextFieldRenderer : NetworkBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        string info = PlayerManager.GetInstance().GetPlayersInfo();
-        info += "HeatPower = " + PoliceController.GetInstance().HeatPower;
-        text.transform.Find("PlayersInfo").GetComponent<Text>().text = info;
+        if (PoliceController.GetInstance() != null)
+        {
+            string info = PlayerManager.GetInstance().GetPlayersInfo();
+            info += "HeatPower = " + PoliceController.GetInstance().HeatPower;
+            text.transform.Find("PlayersInfo").GetComponent<Text>().text = info;
+        }
     }
 }
