@@ -5,30 +5,27 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class Vehicle : MonoBehaviour
 {
-    [Header("Physics")]
-    [SerializeField] private float acceleration;
+    [Header("Physics")] [SerializeField] private float acceleration;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float maxForce;
     [SerializeField] private Vector3 velocity;
     [SerializeField] private Vector3 steering;
 
-    [Header("Movemental")]
-    [SerializeField] private float changeDistance;
+    [Header("Movemental")] [SerializeField] private float changeDistance;
     [SerializeField] private float slowMovemntRaius;
     [SerializeField] private RoadPoint waypoint;
     [SerializeField] private Vector3 pathPoint;
 
-    [Header("Other")]
-    [SerializeField] private bool isMoving;
+    [Header("Other")] [SerializeField] private bool isMoving = true;
     [SerializeField] private bool isCollisionDetect;
     [SerializeField] private bool isDrawDetectors;
     [SerializeField] private float distance;
 
-    [Header("Detecters")]
-    [SerializeField] private List<Transform> overtakingDetectors = new List<Transform>();
+    [Header("Detectors")] [SerializeField] private List<Transform> overtakingDetectors = new List<Transform>();
+    [SerializeField] private bool isAiEnabled = false;
     [SerializeField] private float collisionDetectionDistance;
     [SerializeField] private float overtakingOffset;
-    
+
     private List<RoadPoint> waypoints;
 
     private Vector3 directionToPoint;
@@ -41,17 +38,16 @@ public class Vehicle : MonoBehaviour
         {
             foreach (var detector in overtakingDetectors)
             {
-                Gizmos.DrawLine(detector.position, detector.position + detector.forward * collisionDetectionDistance);
+                Gizmos.DrawLine(detector.position, detector.position + detector.forward*collisionDetectionDistance);
             }
         }
-
     }
 
     void Start()
     {
-        velocity = transform.forward.normalized * maxSpeed;
+        velocity = transform.forward.normalized*maxSpeed;
     }
-    
+
     void FixedUpdate()
     {
         if (!isMoving)
@@ -63,7 +59,7 @@ public class Vehicle : MonoBehaviour
         FindPathPoint();
 
         distance = Vector3.Distance(waypoint.transform.position, transform.position);
-        
+
         Accelerate();
 
         if (distance < changeDistance)
@@ -77,17 +73,14 @@ public class Vehicle : MonoBehaviour
         Vector3 V1 = transform.position - waypoint.prevPoint.transform.position;
         var onNormal = waypoint.transform.position - waypoint.prevPoint.transform.position;
 
-        if (isCollisionDetect)
-        {
-            onNormal -= Vector3.left * overtakingOffset;
-        }
 
         Vector3 V2 = Vector3.Project(V1, onNormal);
 
-        pathPoint = waypoint.prevPoint.transform.position + V2;
-        pathPoint += V2.normalized;
-
-//        Debug.DrawLine(transform.position, pathPoint);
+        pathPoint = waypoint.prevPoint.transform.position + V2 + onNormal.normalized*changeDistance;
+        if (isCollisionDetect)
+        {
+            pathPoint += (Quaternion.Euler(0, -45, 0)* V2.normalized * overtakingOffset);
+        }
     }
 
     private void CheckCollision()
@@ -110,15 +103,21 @@ public class Vehicle : MonoBehaviour
             {
                 if (hit.transform.tag == "Vehicle")
                 {
+                    var component = hit.transform.gameObject.GetComponent<Vehicle>();
+                    if (component.velocity.magnitude > maxSpeed)
+                    {
+                        return;
+                    }
+
                     var hitDistance = hit.distance;
 
                     if (hitDistance <= collisionDetectionDistance)
                     {
-                        Debug.DrawLine(overtakingDetector.position, overtakingDetector.position + overtakingDetector.forward * hitDistance, Color.red);
+                        Debug.DrawLine(overtakingDetector.position,
+                            overtakingDetector.position + overtakingDetector.forward*hitDistance, Color.red);
                         isCollisionDetect = true;
                         return;
                     }
-
                 }
             }
         }
@@ -132,10 +131,10 @@ public class Vehicle : MonoBehaviour
     private void Accelerate()
     {
         Vector3 toPoint = GetDirectionToPoint(pathPoint);
-        
+
 //        float localMaxSpeed = Arrival(maxSpeed);
 
-        Vector3 diseredVelocity = toPoint.normalized * maxSpeed;
+        Vector3 diseredVelocity = toPoint.normalized*maxSpeed;
 //        Debug.DrawLine(transform.position, transform.position + diseredVelocity, Color.blue);
 
         steering = diseredVelocity - velocity;
@@ -150,7 +149,7 @@ public class Vehicle : MonoBehaviour
 
         transform.LookAt(transform.position + velocity);
     }
-    
+
     private Vector3 GetDirectionToPoint(Vector3 target)
     {
         return target - transform.position;
