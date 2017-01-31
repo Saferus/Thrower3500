@@ -1710,7 +1710,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &473586272
 MonoBehaviour:
@@ -5909,7 +5909,7 @@ Transform:
   - {fileID: 811732269}
   - {fileID: 1468770988}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1366176080
 GameObject:
@@ -7211,6 +7211,7 @@ GameObject:
   - component: {fileID: 1512056099}
   - component: {fileID: 1512056101}
   - component: {fileID: 1512056100}
+  - component: {fileID: 1512056102}
   m_Layer: 0
   m_Name: Car (4)
   m_TagString: Vehicle
@@ -7280,6 +7281,19 @@ MonoBehaviour:
   isAiEnabled: 0
   collisionDetectionDistance: 0.4
   overtakingOffset: 0.25
+--- !u!114 &1512056102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1512056098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0fcbb3c61c42a438b2ed4fd61476d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  policePrefab: {fileID: 1226776310556716, guid: 7cf53e79d2d745c4dbcfa55dd311b1f4,
+    type: 2}
 --- !u!1001 &1534258620
 Prefab:
   m_ObjectHideFlags: 0
@@ -10555,6 +10569,41 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4500732379383062, guid: 3911f7f9d17b0624fadfc54caf1ae8ef, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 65363802738182944, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65363802738182944, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Center.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 65363802738182944, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Center.z
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 65363802738182944, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 65363802738182944, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 65363802738182944, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 65363802738182944, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
