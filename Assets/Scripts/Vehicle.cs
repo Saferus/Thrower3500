@@ -20,10 +20,14 @@ public class Vehicle : MonoBehaviour
     [SerializeField] private bool isDrawDetectors;
     [SerializeField] private float distance;
 
-    [Header("Detectors")] [SerializeField] private List<Transform> overtakingDetectors = new List<Transform>();
+    [Header("Overtaking Detectors")] [SerializeField] private List<Transform> overtakingDetectors =
+        new List<Transform>();
+
     [SerializeField] private bool isAiEnabled = false;
     [SerializeField] private float collisionDetectionDistance;
     [SerializeField] private float overtakingOffset;
+
+    [Header("Turning Detectors")] [SerializeField] private List<Transform> turningDetectors = new List<Transform>();
 
     private List<RoadPoint> waypoints;
 
@@ -78,7 +82,7 @@ public class Vehicle : MonoBehaviour
         pathPoint = waypoint.prevPoint.transform.position + V2 + onNormal.normalized*changeDistance;
         if (isCollisionDetect)
         {
-            pathPoint += (Quaternion.Euler(0, -45, 0)* V2.normalized * overtakingOffset);
+            pathPoint += (Quaternion.Euler(0, -90, 0)*V2.normalized*overtakingOffset);
         }
     }
 
