@@ -16,7 +16,6 @@ public class Mafia : NetworkBehaviour
     public int type;
 
     public Transform target;
-    private NavMeshAgent agent;
 
     public void MarkAsMine()
     {
@@ -27,11 +26,10 @@ public class Mafia : NetworkBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
-        agent = gameObject.GetComponent<NavMeshAgent>();
+        
         if (isServer)
         {
-            agent.SetDestination(target.position);
+            MoveToTarget();
         }
     }
     
@@ -134,5 +132,21 @@ public class Mafia : NetworkBehaviour
     {
         rb.AddForce(new Vector3(startPos.y - pos.y, 0, pos.x - startPos.x) * speed);
     }
+    
+    public void MoveToTarget()
+    {
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(target.position);
+        RpcMoveToTarget(gameObject.GetComponent<NetworkIdentity>().netId);
+    }
+
+    [ClientRpc]
+    public void RpcMoveToTarget(NetworkInstanceId id)
+    {
+        if (gameObject.GetComponent<NetworkIdentity>().netId == id)
+        {
+            gameObject.GetComponent<NavMeshAgent>().SetDestination(target.position);
+        }        
+    }
+
 }
 

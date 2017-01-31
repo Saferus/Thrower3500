@@ -61,9 +61,13 @@ public class Shop : NetworkBehaviour, IPointerClickHandler
 
     void OnCollisionEnter(Collision col)
     {
-        if (isServer && (heatHideValue < PoliceController.GetInstance().HeatPower) && (settledPlayer != null) && (col.gameObject.tag == "Police"))
+        if (isServer && (heatHideValue < PoliceController.GetInstance().HeatPower) && (settledPlayer != null) && (col.gameObject.tag == "Vehicle"))
         {
-            col.gameObject.GetComponent<PoliceVehicle>().SpawnPolice(settledPlayer);
+            PoliceVehicle police = col.gameObject.GetComponent<PoliceVehicle>();
+            if (police != null)
+            {
+                police.SpawnPolice(settledPlayer);
+            }
         }
     }
 }
