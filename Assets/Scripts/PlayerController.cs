@@ -75,16 +75,30 @@ public class PlayerController : NetworkBehaviour
     public void CmdOnSettleClicked(NetworkInstanceId shopID, NetworkInstanceId settledPlayerID)
     {
         MafiaNavigator mn = NetworkServer.FindLocalObject(settledPlayerID).GetComponent<MafiaNavigator>();
-        mn.MoveToTarget(shopID);
+        mn.MoveToTarget(shopID, NetworkServer.FindLocalObject(shopID).transform.FindChild("roadPoint").transform.position);
         mn.WaitSettle();
         //ObjectManager.GetInstance().SettlePlayerInShop(settledPlayerID, shopID);
     }
 
     [Command]
-    public void CmdOnAttackClicked(NetworkInstanceId shopID, NetworkInstanceId attackPlayerID)
+    public void CmdOnAttackClicked(NetworkInstanceId attackPlayerID, NetworkInstanceId defencePlayerID)
     {
         MafiaNavigator mn = NetworkServer.FindLocalObject(attackPlayerID).GetComponent<MafiaNavigator>();
-        mn.MoveToTarget(shopID);
+        GameObject dp = NetworkServer.FindLocalObject(defencePlayerID);
+        Vector3 targetPos;
+        NetworkInstanceId targetID;
+        GameObject shop = dp.GetComponent<Mafia>().shopWhereIAm;
+        if (shop == null)
+        {
+            targetPos = dp.transform.position;
+            targetID = dp.GetComponent<NetworkIdentity>().netId;
+        }
+        else
+        {
+            targetPos = shop.transform.FindChild("roadPoint").transform.position;
+            targetID = shop.GetComponent<NetworkIdentity>().netId;
+        }
+        mn.MoveToTarget(targetID, targetPos);
         mn.WaitAttack();
         //ObjectManager.GetInstance().StartCombat(attackPlayerID, defencePlayerID);
     }

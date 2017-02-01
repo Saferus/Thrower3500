@@ -52,9 +52,9 @@ public class MafiaNavigator : NetworkBehaviour
     }
 
     
-    public void MoveToTarget(NetworkInstanceId targetID)
+    public void MoveToTarget(NetworkInstanceId targetID, Vector3 pos)
     {
-        gameObject.GetComponent<NavMeshAgent>().SetDestination(NetworkServer.FindLocalObject(targetID).transform.FindChild("roadPoint").transform.position);
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(pos);
         this.targetID = targetID;
     }
 
@@ -71,6 +71,7 @@ public class MafiaNavigator : NetworkBehaviour
     private void Settle()
     {
         ObjectManager.GetInstance().SettlePlayerInShop(gameObject.GetComponent<NetworkIdentity>().netId, targetID);
+        gameObject.transform.Translate(NetworkServer.FindLocalObject(targetID).transform.position);
     }
 
     private void Attack()
