@@ -85,7 +85,7 @@ public class PlayerController : NetworkBehaviour
     {
         MafiaNavigator mn = NetworkServer.FindLocalObject(attackPlayerID).GetComponent<MafiaNavigator>();
         mn.MoveToTarget(shopID);
-        mn.WaitSettle();
+        mn.WaitAttack();
         //ObjectManager.GetInstance().StartCombat(attackPlayerID, defencePlayerID);
     }
 

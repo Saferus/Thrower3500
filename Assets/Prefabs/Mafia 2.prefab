@@ -174,7 +174,6 @@ MonoBehaviour:
   UIAttack: {fileID: 1000011899546404, guid: 558c3e73f4e355947904110e816a5bbe, type: 2}
   shopWhereIAm: {fileID: 0}
   type: 0
-  target: {fileID: 4616694407148512, guid: 3911f7f9d17b0624fadfc54caf1ae8ef, type: 2}
 --- !u!114 &114272059196186430
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -315,7 +314,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1290422535811522}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5

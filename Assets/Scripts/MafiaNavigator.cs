@@ -29,7 +29,7 @@ public class MafiaNavigator : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<NetworkTransform>().netId == targetID)
+        if (isServer && other.gameObject.GetComponent<NetworkIdentity>().netId == targetID)
         {
             gameObject.GetComponent<NavMeshAgent>().Stop();
 
