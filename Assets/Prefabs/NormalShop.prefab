@@ -275,7 +275,6 @@ GameObject:
   - component: {fileID: 114175818088515332}
   - component: {fileID: 114530066833411326}
   - component: {fileID: 54273947650856390}
-  - component: {fileID: 65363802738182944}
   - component: {fileID: 65774745124934244}
   m_Layer: 0
   m_Name: NormalShop
@@ -1330,7 +1329,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65363802738182944
+--- !u!65 &65774745124934244
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1340,20 +1339,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 25, y: 10, z: 10}
-  m_Center: {x: 0, y: -10, z: 17}
---- !u!65 &65774745124934244
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1727068433737432}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 22, y: 22, z: 22}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 22, y: 22, z: 30}
+  m_Center: {x: 0, y: -4, z: 8}
 --- !u!114 &114175818088515332
 MonoBehaviour:
   m_ObjectHideFlags: 1
