@@ -54,7 +54,7 @@ public class MafiaNavigator : NetworkBehaviour
     
     public void MoveToTarget(NetworkInstanceId targetID)
     {
-        gameObject.GetComponent<NavMeshAgent>().SetDestination(NetworkServer.FindLocalObject(targetID).transform.position);
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(NetworkServer.FindLocalObject(targetID).transform.FindChild("roadPoint").transform.position);
         this.targetID = targetID;
     }
 
