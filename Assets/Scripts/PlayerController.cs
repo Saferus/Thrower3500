@@ -74,14 +74,19 @@ public class PlayerController : NetworkBehaviour
     [Command]
     public void CmdOnSettleClicked(NetworkInstanceId shopID, NetworkInstanceId settledPlayerID)
     {
-        NetworkServer.FindLocalObject(settledPlayerID).GetComponent<Mafia>().MoveToTarget();
+        MafiaNavigator mn = NetworkServer.FindLocalObject(settledPlayerID).GetComponent<MafiaNavigator>();
+        mn.MoveToTarget(shopID);
+        mn.WaitSettle();
         //ObjectManager.GetInstance().SettlePlayerInShop(settledPlayerID, shopID);
     }
 
     [Command]
-    public void CmdOnAttackClicked(NetworkInstanceId attackPlayerID, NetworkInstanceId defencePlayerID)
+    public void CmdOnAttackClicked(NetworkInstanceId shopID, NetworkInstanceId attackPlayerID)
     {
-        ObjectManager.GetInstance().StartCombat(attackPlayerID, defencePlayerID);
+        MafiaNavigator mn = NetworkServer.FindLocalObject(attackPlayerID).GetComponent<MafiaNavigator>();
+        mn.MoveToTarget(shopID);
+        mn.WaitSettle();
+        //ObjectManager.GetInstance().StartCombat(attackPlayerID, defencePlayerID);
     }
 
     [ClientRpc]

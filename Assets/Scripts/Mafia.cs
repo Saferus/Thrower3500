@@ -15,8 +15,6 @@ public class Mafia : NetworkBehaviour
     private bool isMine;
     public int type;
 
-    public Transform target;
-
     public void MarkAsMine()
     {
         isMine = true;
@@ -126,25 +124,6 @@ public class Mafia : NetworkBehaviour
     public void RpcAddClientForce(Vector2 startPos, Vector2 pos)
     {
         rb.AddForce(new Vector3(startPos.y - pos.y, 0, pos.x - startPos.x) * speed);
-    }
-    
-    public void MoveToTarget()
-    {
-        if (isServer)
-        {
-            gameObject.GetComponent<NavMeshAgent>().SetDestination(target.position);
-            RpcMoveToTarget(gameObject.GetComponent<NetworkIdentity>().netId);
-        }
-        
-    }
-
-    [ClientRpc]
-    public void RpcMoveToTarget(NetworkInstanceId id)
-    {
-        if (gameObject.GetComponent<NetworkIdentity>().netId == id)
-        {
-            gameObject.GetComponent<NavMeshAgent>().SetDestination(target.position);
-        }        
     }
 
 }

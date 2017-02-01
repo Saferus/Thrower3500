@@ -2,11 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Networking;
 
-public class MafiaNavigator : MonoBehaviour {
+public class MafiaNavigator : NetworkBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
+    enum Action
+    {
+        SETTLE,
+        ATTACK,
+        NONE
+    }
+
+    private Action postAction = Action.NONE;
+
+    private NetworkInstanceId targetID;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -19,6 +32,50 @@ public class MafiaNavigator : MonoBehaviour {
         if (other.gameObject.name == "NormalShop")
         {
             gameObject.GetComponent<NavMeshAgent>().Stop();
+
+            switch (postAction)
+            {
+                case Action.SETTLE:
+                {
+                    Settle();
+                    break;
+                }
+                case Action.ATTACK:
+                {
+                    Attack();
+                    break;
+                }
+            }
+
+            postAction = Action.NONE;
         }
     }
+
+    
+    public void MoveToTarget(NetworkInstanceId targetID)
+    {
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(NetworkServer.FindLocalObject(targetID).transform.position);
+        this.targetID = targetID;
+    }
+
+    public void WaitSettle()
+    {
+        postAction = Action.SETTLE;
+    }
+
+    public void WaitAttack()
+    {
+        postAction = Action.ATTACK;
+    }
+
+    private void Settle()
+    {
+        ObjectManager.GetInstance().SettlePlayerInShop(gameObject.GetComponent<NetworkIdentity>().netId, targetID);
+    }
+
+    private void Attack()
+    {
+        ObjectManager.GetInstance().StartCombat(gameObject.GetComponent<NetworkIdentity>().netId, targetID);
+    }
+
 }

@@ -62,8 +62,8 @@ public class AttackUIController : MonoBehaviour
         }
         if (type == TYPE_ON_ENEMY)
         {
-            PlayerController.GetLocalInstance().CmdOnAttackClicked(FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId,
-                FocusManager.GetCurrentFocusedEnemy().GetComponent<NetworkIdentity>().netId);
+            PlayerController.GetLocalInstance().CmdOnAttackClicked(FocusManager.GetCurrentFocusedEnemy().GetComponent<NetworkIdentity>().netId,
+                FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId);
             FocusManager.SetFocusedPlayer(null);
             FocusManager.SetFocusedBuilding(null);
             FocusManager.SetFocusedEnemy(null);

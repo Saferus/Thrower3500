@@ -41,8 +41,8 @@ public class Shop : NetworkBehaviour, IPointerClickHandler
     {
         Shop shop = FocusManager.GetCurrentFocusedBuilding().GetComponent<Shop>();
         if (shop.settledPlayer != null)
-            PlayerController.GetLocalInstance().CmdOnAttackClicked(FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId,
-                shop.settledPlayer.GetComponent<NetworkIdentity>().netId);
+            PlayerController.GetLocalInstance().CmdOnAttackClicked(shop.GetComponent<NetworkIdentity>().netId, 
+                FocusManager.GetCurrentFocusedPlayer().GetComponent<NetworkIdentity>().netId);
         FocusManager.SetFocusedPlayer(null);
         FocusManager.SetFocusedBuilding(null);
     }
