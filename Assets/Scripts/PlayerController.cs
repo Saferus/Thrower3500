@@ -74,7 +74,8 @@ public class PlayerController : NetworkBehaviour
     [Command]
     public void CmdOnSettleClicked(NetworkInstanceId shopID, NetworkInstanceId settledPlayerID)
     {
-        ObjectManager.GetInstance().SettlePlayerInShop(settledPlayerID, shopID);
+        NetworkServer.FindLocalObject(settledPlayerID).GetComponent<Mafia>().MoveToTarget();
+        //ObjectManager.GetInstance().SettlePlayerInShop(settledPlayerID, shopID);
     }
 
     [Command]

@@ -26,11 +26,6 @@ public class Mafia : NetworkBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        
-        if (isServer)
-        {
-            MoveToTarget();
-        }
     }
     
     void Update()
@@ -135,8 +130,12 @@ public class Mafia : NetworkBehaviour
     
     public void MoveToTarget()
     {
-        gameObject.GetComponent<NavMeshAgent>().SetDestination(target.position);
-        RpcMoveToTarget(gameObject.GetComponent<NetworkIdentity>().netId);
+        if (isServer)
+        {
+            gameObject.GetComponent<NavMeshAgent>().SetDestination(target.position);
+            RpcMoveToTarget(gameObject.GetComponent<NetworkIdentity>().netId);
+        }
+        
     }
 
     [ClientRpc]
