@@ -1339,8 +1339,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 33.56, y: 28.74, z: 24}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 25, y: 10, z: 10}
+  m_Center: {x: 0, y: -10, z: 17}
 --- !u!114 &114175818088515332
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1387,5 +1387,6 @@ MonoBehaviour:
   deffenceBonus: 0.9
   xpBonus: 15
   heatMultiplier: 5000
+  heatHideValue: 0
   UIAttack: {fileID: 1000011899546404, guid: 558c3e73f4e355947904110e816a5bbe, type: 2}
   settledPlayer: {fileID: 0}

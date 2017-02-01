@@ -1340,6 +1340,7 @@ MonoBehaviour:
   isAiEnabled: 0
   collisionDetectionDistance: 0.2
   overtakingOffset: 0.8
+  turningDetectors: []
 --- !u!1001 &376264870
 Prefab:
   m_ObjectHideFlags: 0
@@ -5714,6 +5715,7 @@ MonoBehaviour:
   isAiEnabled: 0
   collisionDetectionDistance: 0.2
   overtakingOffset: 0.8
+  turningDetectors: []
 --- !u!1 &1327532134
 GameObject:
   m_ObjectHideFlags: 0
@@ -7160,6 +7162,7 @@ MonoBehaviour:
   isAiEnabled: 0
   collisionDetectionDistance: 0.4
   overtakingOffset: 0.25
+  turningDetectors: []
 --- !u!1001 &1534258620
 Prefab:
   m_ObjectHideFlags: 0
@@ -9338,6 +9341,7 @@ MonoBehaviour:
   isAiEnabled: 0
   collisionDetectionDistance: 0.2
   overtakingOffset: 0.8
+  turningDetectors: []
 --- !u!1 &1840571074
 GameObject:
   m_ObjectHideFlags: 0
@@ -10436,6 +10440,31 @@ Prefab:
     - target: {fileID: 4500732379383062, guid: 3911f7f9d17b0624fadfc54caf1ae8ef, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 65363802738182944, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Center.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 65363802738182944, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Center.z
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 65363802738182944, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 65363802738182944, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 65363802738182944, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3911f7f9d17b0624fadfc54caf1ae8ef, type: 2}
