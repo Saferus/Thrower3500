@@ -16,7 +16,8 @@ public class MafiaNavigator : NetworkBehaviour
 
     private Action postAction = Action.NONE;
 
-    private NetworkInstanceId targetID;
+    private NetworkInstanceId shopID;
+    private NetworkInstanceId mafiaID;
 
     // Use this for initialization
     void Start ()
@@ -34,7 +35,8 @@ public class MafiaNavigator : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isServer && other.gameObject.GetComponent<NetworkIdentity>().netId == targetID)
+        if (isServer && (other.gameObject.GetComponent<NetworkIdentity>().netId == shopID 
+            || other.gameObject.GetComponent<NetworkIdentity>().netId == mafiaID))
         {
             gameObject.GetComponent<NavMeshAgent>().Stop();
 
@@ -57,10 +59,23 @@ public class MafiaNavigator : NetworkBehaviour
     }
 
     
-    public void MoveToTarget(NetworkInstanceId targetID, Vector3 pos)
+    public void MoveToShop(NetworkInstanceId shopID, Vector3 pos)
     {
         gameObject.GetComponent<NavMeshAgent>().SetDestination(pos);
-        this.targetID = targetID;
+        this.shopID = shopID;
+    }
+
+    public void MoveToMafia(NetworkInstanceId mafiaID, Vector3 pos)
+    {
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(pos);
+        this.mafiaID = mafiaID;
+    }
+
+    public void MoveToMafiaInShop(NetworkInstanceId mafiaID, NetworkInstanceId shopID, Vector3 pos)
+    {
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(pos);
+        this.mafiaID = mafiaID;
+        this.shopID = shopID;
     }
 
     public void WaitSettle()
@@ -76,14 +91,14 @@ public class MafiaNavigator : NetworkBehaviour
     private void Settle()
     {
         Destroy(gameObject.GetComponent<NavMeshAgent>());
-        ObjectManager.GetInstance().SettlePlayerInShop(gameObject.GetComponent<NetworkIdentity>().netId, targetID);
-        gameObject.transform.Translate(NetworkServer.FindLocalObject(targetID).transform.position);
+        ObjectManager.GetInstance().SettlePlayerInShop(gameObject.GetComponent<NetworkIdentity>().netId, shopID);
+        gameObject.transform.Translate(NetworkServer.FindLocalObject(shopID).transform.position);
         Destroy(this);
     }
 
     private void Attack()
     {
-        ObjectManager.GetInstance().StartCombat(gameObject.GetComponent<NetworkIdentity>().netId, targetID);
+        ObjectManager.GetInstance().StartCombat(gameObject.GetComponent<NetworkIdentity>().netId, mafiaID);
     }
 
 }
