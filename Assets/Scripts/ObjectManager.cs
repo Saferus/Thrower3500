@@ -56,6 +56,7 @@ public class ObjectManager : NetworkBehaviour
             return false;
         PlayerController.GetInstance().RpcMafiaDead(defender.gameObject.GetComponent<NetworkIdentity>().netId);
         defender.Dead();
+        attacker.OnCombatWin();
         NetworkServer.Destroy(defender.gameObject);
         return true;
     }

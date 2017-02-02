@@ -38,4 +38,12 @@ public class CombatUnit : NetworkBehaviour {
             shopWhereIAm.GetComponent<Shop>().OnSettleDead();
         }
     }
+
+    public void OnCombatWin()
+    {
+        if (gameObject.tag == "PoliceUnit")
+        {
+            Destroy(gameObject);
+        }
+    }
 }

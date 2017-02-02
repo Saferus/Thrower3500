@@ -16,6 +16,7 @@ TagManager:
   - Mafia3
   - WayPoint
   - Vehicle
+  - PoliceUnit
   layers:
   - Default
   - TransparentFX

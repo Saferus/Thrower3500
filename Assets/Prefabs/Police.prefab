@@ -29,7 +29,7 @@ GameObject:
   - component: {fileID: 114343024306861568}
   m_Layer: 0
   m_Name: Police
-  m_TagString: Mafia3
+  m_TagString: PoliceUnit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -200,7 +200,6 @@ MonoBehaviour:
   attackSpeed: 2
   maxHealth: 20000
   currentHealth: 20000
-  healthBar: {fileID: 0}
 --- !u!114 &114493549261202542
 MonoBehaviour:
   m_ObjectHideFlags: 1
