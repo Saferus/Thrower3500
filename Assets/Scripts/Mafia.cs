@@ -1,13 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 
 public class Mafia : NetworkBehaviour
 {
     public float speed = 1;
-
-    private Rigidbody rb;
+    
     private bool startInputOnObject;
 
     public GameObject UIAttack;
@@ -19,11 +16,6 @@ public class Mafia : NetworkBehaviour
     {
         isMine = true;
         transform.GetComponent<Renderer>().material.color = Color.green;
-    }
-    
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
     }
     
     void Update()
@@ -113,18 +105,5 @@ public class Mafia : NetworkBehaviour
         }
         startInputOnObject = true;
     }
-    
-    public void AddForce(Vector2 startPos, Vector2 pos)
-    {
-        rb.AddForce(new Vector3(startPos.y - pos.y, 0, pos.x - startPos.x) * speed);
-        RpcAddClientForce(startPos, pos);
-    }
-
-    [ClientRpc]
-    public void RpcAddClientForce(Vector2 startPos, Vector2 pos)
-    {
-        rb.AddForce(new Vector3(startPos.y - pos.y, 0, pos.x - startPos.x) * speed);
-    }
-
 }
 

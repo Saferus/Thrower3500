@@ -60,17 +60,6 @@ public class PlayerController : NetworkBehaviour
         return GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
-    public void AddForce(NetworkInstanceId obj, Vector2 startPos, Vector2 pos)
-    {
-        CmdAddForce(obj, startPos, pos);
-    }
-
-    [Command]
-    public void CmdAddForce(NetworkInstanceId obj, Vector2 startPos, Vector2 pos)
-    {
-        NetworkServer.FindLocalObject(obj).GetComponent<Mafia>().AddForce(startPos, pos);
-    }
-
     [Command]
     public void CmdOnSettleClicked(NetworkInstanceId shopID, NetworkInstanceId settledPlayerID)
     {

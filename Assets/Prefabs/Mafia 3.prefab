@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4506776481956494}
   - component: {fileID: 33602455357730660}
   - component: {fileID: 23457499138301456}
-  - component: {fileID: 54210609761444048}
   - component: {fileID: 135843179207420344}
   - component: {fileID: 114728912590024182}
   - component: {fileID: 114823193776172974}
@@ -124,21 +123,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572772214061520}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54210609761444048
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1572772214061520}
-  serializedVersion: 2
-  m_Mass: 0.1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &114147851753253360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -150,11 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 3
+  m_TransformSyncMode: 1
   m_SendInterval: 0.11111111
   m_SyncRotationAxis: 3
   m_RotationSyncCompression: 0
-  m_SyncSpin: 1
+  m_SyncSpin: 0
   m_MovementTheshold: 0.001
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
@@ -327,18 +311,18 @@ NavMeshAgent:
   m_GameObject: {fileID: 1572772214061520}
   m_Enabled: 1
   m_Radius: 0.25
-  m_Speed: 10
-  m_Acceleration: 0.5
+  m_Speed: 7
+  m_Acceleration: 10
   avoidancePriority: 50
-  m_AngularSpeed: 0.001
-  m_StoppingDistance: 5
+  m_AngularSpeed: 999
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 0
   m_Height: 0.5
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!222 &222462479239276446
 CanvasRenderer:
   m_ObjectHideFlags: 1
