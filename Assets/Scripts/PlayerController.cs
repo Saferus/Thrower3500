@@ -77,7 +77,6 @@ public class PlayerController : NetworkBehaviour
         MafiaNavigator mn = NetworkServer.FindLocalObject(settledPlayerID).GetComponent<MafiaNavigator>();
         mn.MoveToTarget(shopID, NetworkServer.FindLocalObject(shopID).transform.FindChild("roadPoint").transform.position);
         mn.WaitSettle();
-        //ObjectManager.GetInstance().SettlePlayerInShop(settledPlayerID, shopID);
     }
 
     [Command]

@@ -19,9 +19,14 @@ public class MafiaNavigator : NetworkBehaviour
     private NetworkInstanceId targetID;
 
     // Use this for initialization
-    void Start () {
-		
-	}
+    void Start ()
+    {
+        if (!isServer)
+        {
+            Destroy(gameObject.GetComponent<NavMeshAgent>());
+            Destroy(this);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -70,8 +75,10 @@ public class MafiaNavigator : NetworkBehaviour
 
     private void Settle()
     {
+        Destroy(gameObject.GetComponent<NavMeshAgent>());
         ObjectManager.GetInstance().SettlePlayerInShop(gameObject.GetComponent<NetworkIdentity>().netId, targetID);
         gameObject.transform.Translate(NetworkServer.FindLocalObject(targetID).transform.position);
+        Destroy(this);
     }
 
     private void Attack()
