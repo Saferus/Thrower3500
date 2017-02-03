@@ -10459,7 +10459,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 65774745124934244, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Center.y
+      value: -13
+      objectReference: {fileID: 0}
+    - target: {fileID: 65774745124934244, guid: 3911f7f9d17b0624fadfc54caf1ae8ef,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 54273947650856390, guid: 3911f7f9d17b0624fadfc54caf1ae8ef, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3911f7f9d17b0624fadfc54caf1ae8ef, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &2124991300 stripped
