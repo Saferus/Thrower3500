@@ -16,7 +16,7 @@ public class MafiaNavigator : NetworkBehaviour
 
     private Action postAction = Action.NONE;
 
-    private NetworkInstanceId shopID;
+    private GameObject shop;
     private NetworkInstanceId mafiaID;
 
     // Use this for initialization
@@ -35,8 +35,7 @@ public class MafiaNavigator : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isServer && (other.gameObject.GetComponent<NetworkIdentity>().netId == shopID 
-            || other.gameObject.GetComponent<NetworkIdentity>().netId == mafiaID))
+        if (isServer && (other.gameObject == shop || other.gameObject.GetComponent<NetworkIdentity>().netId == mafiaID))
         {
             gameObject.GetComponent<NavMeshAgent>().Stop();
 
@@ -59,10 +58,10 @@ public class MafiaNavigator : NetworkBehaviour
     }
 
     
-    public void MoveToShop(NetworkInstanceId shopID, Vector3 pos)
+    public void MoveToShop(GameObject shop)
     {
-        gameObject.GetComponent<NavMeshAgent>().SetDestination(pos);
-        this.shopID = shopID;
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(shop.transform.FindChild("roadPoint").transform.position);
+        this.shop = shop;
     }
 
     public void MoveToMafia(NetworkInstanceId mafiaID, Vector3 pos)
@@ -71,11 +70,11 @@ public class MafiaNavigator : NetworkBehaviour
         this.mafiaID = mafiaID;
     }
 
-    public void MoveToMafiaInShop(NetworkInstanceId mafiaID, NetworkInstanceId shopID, Vector3 pos)
+    public void MoveToMafiaInShop(NetworkInstanceId mafiaID, GameObject shop)
     {
-        gameObject.GetComponent<NavMeshAgent>().SetDestination(pos);
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(shop.transform.FindChild("roadPoint").transform.position);
         this.mafiaID = mafiaID;
-        this.shopID = shopID;
+        this.shop = shop;
     }
 
     public void WaitSettle()
@@ -90,10 +89,13 @@ public class MafiaNavigator : NetworkBehaviour
 
     private void Settle()
     {
-        Destroy(gameObject.GetComponent<NavMeshAgent>());
-        ObjectManager.GetInstance().SettlePlayerInShop(gameObject.GetComponent<NetworkIdentity>().netId, shopID);
-        gameObject.transform.Translate(NetworkServer.FindLocalObject(shopID).transform.position);
-        Destroy(this);
+        if (shop.GetComponent<Shop>().settledPlayer == null)
+        {
+            Destroy(gameObject.GetComponent<NavMeshAgent>());
+            ObjectManager.GetInstance().SettlePlayerInShop(gameObject.GetComponent<NetworkIdentity>().netId, shop.GetComponent<NetworkIdentity>().netId);
+            gameObject.transform.Translate(shop.transform.position);
+            Destroy(this);
+        }
     }
 
     private void Attack()
