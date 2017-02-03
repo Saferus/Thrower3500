@@ -60,6 +60,12 @@ public class MafiaNavigator : NetworkBehaviour
     
     public void MoveToShop(GameObject shop)
     {
+        Collider collider = shop.GetComponent<Collider>();
+        if (collider.bounds.Intersects(gameObject.GetComponent<Collider>().bounds))/// Contains(gameObject.transform.position))
+        {
+            OnTriggerEnter(collider);
+            return;
+        }
         gameObject.GetComponent<NavMeshAgent>().SetDestination(shop.transform.FindChild("roadPoint").transform.position);
         this.shop = shop;
     }
