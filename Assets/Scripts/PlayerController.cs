@@ -100,9 +100,6 @@ public class PlayerController : NetworkBehaviour
         GameObject settledPlayer = ClientScene.FindLocalObject(settledPlayerID);
         Physics.IgnoreCollision(settledPlayer.GetComponent<Collider>(), shop.GetComponent<Collider>());
         settledPlayer.GetComponent<Transform>().position = shop.GetComponent<Transform>().position;
-        settledPlayer.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        settledPlayer.GetComponent<Rigidbody>().isKinematic = false;
-        settledPlayer.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         shop.GetComponent<Shop>().settledPlayer = settledPlayer;
         settledPlayer.GetComponent<Mafia>().shopWhereIAm = shop;
         settledPlayer.GetComponent<CombatUnit>().shopWhereIAm = shop;
