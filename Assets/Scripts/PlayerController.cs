@@ -69,7 +69,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    public void CmdOnAttackClicked(NetworkInstanceId attackPlayerID, NetworkInstanceId defencePlayerID)
+    public void CmdOnAttackClicked(NetworkInstanceId defencePlayerID, NetworkInstanceId attackPlayerID)
     {
         MafiaNavigator mn = NetworkServer.FindLocalObject(attackPlayerID).GetComponent<MafiaNavigator>();
         GameObject dp = NetworkServer.FindLocalObject(defencePlayerID);
