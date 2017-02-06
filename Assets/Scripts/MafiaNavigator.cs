@@ -69,20 +69,22 @@ public class MafiaNavigator : NetworkBehaviour
         }
 
         gameObject.GetComponent<NavMeshAgent>().SetDestination(shop.transform.FindChild("roadPoint").transform.position);
+        gameObject.GetComponent<NavMeshAgent>().Resume();
     }
 
     public void MoveToMafia(NetworkInstanceId mafiaID, Vector3 pos)
     {
         this.mafiaID = mafiaID;
 
-        Collider enemyCollider = NetworkServer.FindLocalObject(mafiaID).GetComponent<Collider>();
-        if (enemyCollider.bounds.Intersects(gameObject.GetComponent<Collider>().bounds))
+        GameObject enemy = NetworkServer.FindLocalObject(mafiaID);
+        if (Vector3.Distance(enemy.transform.position, gameObject.transform.position) <= 1.5f)
         {
-            OnTriggerEnter(enemyCollider);
+            OnTriggerEnter(enemy.GetComponent<Collider>());
             return;
         }
 
         gameObject.GetComponent<NavMeshAgent>().SetDestination(pos);
+        gameObject.GetComponent<NavMeshAgent>().Resume();
     }
 
     public void MoveToMafiaInShop(NetworkInstanceId mafiaID, GameObject shop)
@@ -98,6 +100,7 @@ public class MafiaNavigator : NetworkBehaviour
         }
 
         gameObject.GetComponent<NavMeshAgent>().SetDestination(shop.transform.FindChild("roadPoint").transform.position);
+        gameObject.GetComponent<NavMeshAgent>().Resume();
     }
 
     public void WaitSettle()
