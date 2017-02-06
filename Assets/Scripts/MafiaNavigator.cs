@@ -74,10 +74,10 @@ public class MafiaNavigator : NetworkBehaviour
     {
         this.mafiaID = mafiaID;
 
-        Collider collider = shop.GetComponent<Collider>();
-        if (collider.bounds.Intersects(gameObject.GetComponent<Collider>().bounds))
+        Collider enemyCollider = NetworkServer.FindLocalObject(mafiaID).GetComponent<Collider>();
+        if (enemyCollider.bounds.Intersects(gameObject.GetComponent<Collider>().bounds))
         {
-            OnTriggerEnter(collider);
+            OnTriggerEnter(enemyCollider);
             return;
         }
 
@@ -89,10 +89,10 @@ public class MafiaNavigator : NetworkBehaviour
         this.mafiaID = mafiaID;
         this.shop = shop;
 
-        Collider collider = shop.GetComponent<Collider>();
-        if (collider.bounds.Intersects(gameObject.GetComponent<Collider>().bounds))
+        Collider shopCollider = shop.GetComponent<Collider>();
+        if (shopCollider.bounds.Intersects(gameObject.GetComponent<Collider>().bounds))
         {
-            OnTriggerEnter(collider);
+            OnTriggerEnter(shopCollider);
             return;
         }
 
