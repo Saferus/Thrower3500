@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Networking;
 
@@ -62,10 +60,10 @@ public class MafiaNavigator : NetworkBehaviour
     {
         this.shop = shop;
 
-        Collider collider = shop.GetComponent<Collider>();
-        if (collider.bounds.Intersects(gameObject.GetComponent<Collider>().bounds))
+        Collider shopCollider = shop.GetComponent<Collider>();
+        if (shopCollider.bounds.Intersects(gameObject.GetComponent<Collider>().bounds))
         {
-            OnTriggerEnter(collider);
+            OnTriggerEnter(shopCollider);
             return;
         }
 

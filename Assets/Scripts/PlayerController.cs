@@ -64,8 +64,8 @@ public class PlayerController : NetworkBehaviour
     public void CmdOnSettleClicked(NetworkInstanceId shopID, NetworkInstanceId settledPlayerID)
     {
         MafiaNavigator mn = NetworkServer.FindLocalObject(settledPlayerID).GetComponent<MafiaNavigator>();
-        mn.MoveToShop(NetworkServer.FindLocalObject(shopID));
         mn.WaitSettle();
+        mn.MoveToShop(NetworkServer.FindLocalObject(shopID));
     }
 
     [Command]
@@ -75,6 +75,8 @@ public class PlayerController : NetworkBehaviour
         GameObject dp = NetworkServer.FindLocalObject(defencePlayerID);
         GameObject shop = dp.GetComponent<Mafia>().shopWhereIAm;
         NetworkInstanceId targetID = dp.GetComponent<NetworkIdentity>().netId;
+        
+        mn.WaitAttack();
 
         if (shop == null)
         {
@@ -84,8 +86,6 @@ public class PlayerController : NetworkBehaviour
         {
             mn.MoveToMafiaInShop(targetID, shop);
         }
-        
-        mn.WaitAttack();
     }
 
     [ClientRpc]
