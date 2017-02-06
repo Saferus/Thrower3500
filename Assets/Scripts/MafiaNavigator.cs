@@ -119,7 +119,7 @@ public class MafiaNavigator : NetworkBehaviour
         {
             Destroy(gameObject.GetComponent<NavMeshAgent>());
             ObjectManager.GetInstance().SettlePlayerInShop(gameObject.GetComponent<NetworkIdentity>().netId, shop.GetComponent<NetworkIdentity>().netId);
-            gameObject.transform.Translate(shop.transform.position);
+            gameObject.transform.Translate(shop.transform.FindChild("settlePoint").transform.position);
             Destroy(this);
         }
     }
