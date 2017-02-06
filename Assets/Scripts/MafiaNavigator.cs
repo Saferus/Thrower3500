@@ -60,27 +60,45 @@ public class MafiaNavigator : NetworkBehaviour
     
     public void MoveToShop(GameObject shop)
     {
+        this.shop = shop;
+
         Collider collider = shop.GetComponent<Collider>();
-        if (collider.bounds.Intersects(gameObject.GetComponent<Collider>().bounds))/// Contains(gameObject.transform.position))
+        if (collider.bounds.Intersects(gameObject.GetComponent<Collider>().bounds))
         {
             OnTriggerEnter(collider);
             return;
         }
+
         gameObject.GetComponent<NavMeshAgent>().SetDestination(shop.transform.FindChild("roadPoint").transform.position);
-        this.shop = shop;
     }
 
     public void MoveToMafia(NetworkInstanceId mafiaID, Vector3 pos)
     {
-        gameObject.GetComponent<NavMeshAgent>().SetDestination(pos);
         this.mafiaID = mafiaID;
+
+        Collider collider = shop.GetComponent<Collider>();
+        if (collider.bounds.Intersects(gameObject.GetComponent<Collider>().bounds))
+        {
+            OnTriggerEnter(collider);
+            return;
+        }
+
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(pos);
     }
 
     public void MoveToMafiaInShop(NetworkInstanceId mafiaID, GameObject shop)
     {
-        gameObject.GetComponent<NavMeshAgent>().SetDestination(shop.transform.FindChild("roadPoint").transform.position);
         this.mafiaID = mafiaID;
         this.shop = shop;
+
+        Collider collider = shop.GetComponent<Collider>();
+        if (collider.bounds.Intersects(gameObject.GetComponent<Collider>().bounds))
+        {
+            OnTriggerEnter(collider);
+            return;
+        }
+
+        gameObject.GetComponent<NavMeshAgent>().SetDestination(shop.transform.FindChild("roadPoint").transform.position);
     }
 
     public void WaitSettle()
