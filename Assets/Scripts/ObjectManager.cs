@@ -84,7 +84,6 @@ public class ObjectManager : NetworkBehaviour
         GameObject shop = NetworkServer.FindLocalObject(shopID);
         GameObject settledPlayer = NetworkServer.FindLocalObject(settledPlayerID);
         Physics.IgnoreCollision(settledPlayer.GetComponent<Collider>(), shop.GetComponent<Collider>());
-        settledPlayer.GetComponent<Transform>().position = shop.GetComponent<Transform>().position;
         settledPlayer.GetComponent<Mafia>().shopWhereIAm = shop;
         settledPlayer.GetComponent<CombatUnit>().shopWhereIAm = shop;
         shop.GetComponent<Shop>().settledPlayer = settledPlayer;
