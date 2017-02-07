@@ -22,8 +22,18 @@ public class ObjectManager : NetworkBehaviour
 
         public bool Update()
         {
-            if (m_attacker == null || m_defender == null)
+            if (m_attacker == null)
+            {
+                if (m_defender != null)
+                    m_defender.OnCombatWin();
                 return true;
+            }
+            if (m_defender == null)
+            {
+                if (m_attacker != null)
+                    m_attacker.OnCombatWin();
+                return true;
+            }
 
             m_attackerDelay += Time.deltaTime * 1000;
             m_defenderDelay += Time.deltaTime * 1000;

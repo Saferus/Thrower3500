@@ -10,6 +10,7 @@ public class MyNetworkManager : NetworkManager
         {
             NetworkServer.Spawn(GameObject.Find("ObjectManager"));
             NetworkServer.Spawn(GameObject.Find("Buildings"));
+            NetworkServer.Spawn(GameObject.Find("Road"));
         }
     }
 }

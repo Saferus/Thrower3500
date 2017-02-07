@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [RequireComponent(typeof(BoxCollider))]
-public class Vehicle : MonoBehaviour
+public class Vehicle : NetworkBehaviour
 {
     [Header("Physics")] [SerializeField] private float acceleration;
     [SerializeField] private float maxSpeed;
@@ -49,6 +49,12 @@ public class Vehicle : MonoBehaviour
 
     void Start()
     {
+        if (isLocalPlayer)
+        { 
+            Destroy(this);
+            return;
+        }
+
         velocity = transform.forward.normalized*maxSpeed;
     }
 

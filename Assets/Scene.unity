@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43667546, g: 0.48427135, b: 0.5645225, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1272,6 +1272,8 @@ GameObject:
   - component: {fileID: 366762519}
   - component: {fileID: 366762521}
   - component: {fileID: 366762520}
+  - component: {fileID: 366762523}
+  - component: {fileID: 366762522}
   m_Layer: 0
   m_Name: Car (5)
   m_TagString: Vehicle
@@ -1341,6 +1343,58 @@ MonoBehaviour:
   collisionDetectionDistance: 0.2
   overtakingOffset: 0.8
   turningDetectors: []
+--- !u!114 &366762522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 366762518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.071428575
+  m_SyncRotationAxis: 2
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &366762523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 366762518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 73
+    i1: 80
+    i2: 37
+    i3: 75
+    i4: 12
+    i5: 228
+    i6: 131
+    i7: 212
+    i8: 217
+    i9: 187
+    i10: 110
+    i11: 85
+    i12: 96
+    i13: 218
+    i14: 77
+    i15: 120
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1001 &376264870
 Prefab:
   m_ObjectHideFlags: 0
@@ -5722,6 +5776,8 @@ GameObject:
   - component: {fileID: 1317701455}
   - component: {fileID: 1317701457}
   - component: {fileID: 1317701456}
+  - component: {fileID: 1317701459}
+  - component: {fileID: 1317701458}
   m_Layer: 0
   m_Name: Car (7)
   m_TagString: Vehicle
@@ -5791,6 +5847,58 @@ MonoBehaviour:
   collisionDetectionDistance: 0.2
   overtakingOffset: 0.8
   turningDetectors: []
+--- !u!114 &1317701458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1317701454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.071428575
+  m_SyncRotationAxis: 2
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &1317701459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1317701454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 73
+    i1: 80
+    i2: 37
+    i3: 75
+    i4: 12
+    i5: 228
+    i6: 131
+    i7: 212
+    i8: 217
+    i9: 187
+    i10: 110
+    i11: 85
+    i12: 96
+    i13: 218
+    i14: 77
+    i15: 120
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &1327532134
 GameObject:
   m_ObjectHideFlags: 0
@@ -7170,6 +7278,8 @@ GameObject:
   - component: {fileID: 1512056101}
   - component: {fileID: 1512056100}
   - component: {fileID: 1512056102}
+  - component: {fileID: 1512056104}
+  - component: {fileID: 1512056103}
   m_Layer: 0
   m_Name: Car (4)
   m_TagString: Vehicle
@@ -7254,6 +7364,58 @@ MonoBehaviour:
   spawnCD: 0
   policePrefab: {fileID: 1226776310556716, guid: 7cf53e79d2d745c4dbcfa55dd311b1f4,
     type: 2}
+--- !u!114 &1512056103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1512056098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.06666667
+  m_SyncRotationAxis: 2
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 1
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &1512056104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1512056098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 73
+    i1: 80
+    i2: 37
+    i3: 75
+    i4: 12
+    i5: 228
+    i6: 131
+    i7: 212
+    i8: 217
+    i9: 187
+    i10: 110
+    i11: 85
+    i12: 96
+    i13: 218
+    i14: 77
+    i15: 120
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1001 &1534258620
 Prefab:
   m_ObjectHideFlags: 0
@@ -9212,6 +9374,8 @@ GameObject:
   - component: {fileID: 1840441220}
   - component: {fileID: 1840441222}
   - component: {fileID: 1840441221}
+  - component: {fileID: 1840441224}
+  - component: {fileID: 1840441223}
   m_Layer: 0
   m_Name: Car (6)
   m_TagString: Vehicle
@@ -9281,6 +9445,58 @@ MonoBehaviour:
   collisionDetectionDistance: 0.2
   overtakingOffset: 0.8
   turningDetectors: []
+--- !u!114 &1840441223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1840441219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.071428575
+  m_SyncRotationAxis: 2
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &1840441224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1840441219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 73
+    i1: 80
+    i2: 37
+    i3: 75
+    i4: 12
+    i5: 228
+    i6: 131
+    i7: 212
+    i8: 217
+    i9: 187
+    i10: 110
+    i11: 85
+    i12: 96
+    i13: 218
+    i14: 77
+    i15: 120
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &1840571074
 GameObject:
   m_ObjectHideFlags: 0
